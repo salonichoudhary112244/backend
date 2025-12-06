@@ -1,46 +1,32 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import AddStudent from "./pages/AddStudent";
+import ViewStudents from "./pages/ViewStudent";
+import Pagination from "./pages/pagination";
+import Sorting from "./pages/Sorting";
+import Filter from "./pages/Filter";
 
 function App() {
-  const [name, setName] = useState("");
-  const [clas, setClas] = useState("");
-  const [address, setAddress] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const studentData = { name, clas, address };
-
-    fetch("http://localhost:8080/api/save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(studentData)
-    })
-      .then(async (response) => {
-        const text = await response.text(); 
-        return text ? JSON.parse(text) : {}; 
-      })
-      .then((data) => {
-        console.log("Saved:", data);
-        alert("Student saved successfully!");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("Error occurred!");
-      });
-  };
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Student Form</h2>
-      <form onSubmit={handleSubmit}>
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" /><br />
-        <input value={clas} onChange={(e) => setClas(e.target.value)} placeholder="Class" /><br />
-        <textarea value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" /><br />
-        <button type="submit">Save</button>
-      </form>
-    </div>
+    <BrowserRouter>
+
+      <nav style={{ padding: 15, background: "#eee" }}>
+        <Link to="/" style={{ marginRight: 20 }}>Add</Link>
+        <Link to="/view" style={{ marginRight: 20 }}>View</Link>
+        <Link to="/pagination" style={{ marginRight: 20 }}>Pagination</Link>
+        <Link to="/sorting" style={{ marginRight: 20 }}>Sorting</Link>
+        <Link to="/filter">Filter</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<AddStudent />} />
+        <Route path="/view" element={<ViewStudents />} />
+        <Route path="/pagination" element={<Pagination/>} />
+        <Route path="/sorting" element={<Sorting/>} />
+        <Route path="/filter" element={<Filter />} />
+      </Routes>
+
+    </BrowserRouter>
   );
 }
 
