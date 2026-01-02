@@ -1,14 +1,22 @@
-// App.js
-import React from "react";
-import Form from "./Form";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
-  <>
-  <div>
-    <Form/>
-  </div>
-  </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute> } />
+      </Routes>
+    </BrowserRouter>
+    
   );
 }
 

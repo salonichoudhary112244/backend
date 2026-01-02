@@ -1,0 +1,193 @@
+/* ===========================
+   🌸 NAVBAR
+=========================== */
+
+.saloni-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+}
+
+/* Desktop bottom line */
+@media (min-width: 769px) {
+  .saloni-navbar {
+    border-bottom: 1px solid rgba(183, 110, 121, 0.25);
+  }
+}
+
+/* ===========================
+   🌸 BRAND (TEXT + ICON)
+=========================== */
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-name {
+  font-size: 26px;
+  letter-spacing: 4px;
+  font-weight: 600;
+  color: #e8a6b2;
+  transition: color 0.3s ease;
+}
+
+.brand-link:hover .brand-name {
+  color: #9c5660;
+}
+
+.tagline {
+  font-size: 12px;
+  color: #c08b94;
+}
+
+/* ===========================
+   🌸 ICON STYLE
+=========================== */
+
+.saloni-icon {
+  font-size: 26px;
+  color: #e8a6b2;
+  filter: drop-shadow(0 0 6px rgba(232,166,178,0.55));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-link:hover .saloni-icon {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(183,110,121,0.7));
+}
+
+/* 🌬️ Hair flow animation */
+.hair-flow {
+  animation: hairFloat 4s ease-in-out infinite;
+}
+
+@keyframes hairFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+/* ===========================
+   📌 NAV MENU
+=========================== */
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+}
+
+.nav-menu li {
+  font-size: 14px;
+  color: #7a4a4f;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-menu li::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #e8a6b2;
+  transition: width 0.3s ease;
+}
+
+.nav-menu li:hover::after {
+  width: 100%;
+}
+
+/* ===========================
+   🔐 AUTH BUTTONS
+=========================== */
+
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.signin-btn {
+  border: 1px solid #b76e79;
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: #b76e79;
+  text-decoration: none;
+}
+
+.register-btn {
+  background: #e8a6b2;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+}
+
+/* ===========================
+   📱 MOBILE + STICKY NAVBAR
+=========================== */
+
+@media (max-width: 768px) {
+
+  .saloni-navbar {
+    padding: 16px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: rgba(255, 245, 247, 0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 18px rgba(183,110,121,0.15);
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 20px;
+    letter-spacing: 3px;
+  }
+
+  .saloni-icon {
+    font-size: 22px;
+  }
+}
+
+/* =========================
+   🌸 SALONI FACE ICON STYLE
+========================= */
+
+.saloni-icon {
+  color: #e8a6b2; /* soft pink */
+  filter: drop-shadow(0 0 10px rgba(232,166,178,0.6));
+  transition: all 0.35s ease;
+}
+
+/* 🌬️ Hair / face floating */
+.hair-flow {
+  animation: faceFloat 4s ease-in-out infinite;
+}
+
+@keyframes faceFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+/* 🖱️ Hover → dark pink + glow */
+.brand-link:hover .saloni-icon {
+  color: #b76e79;
+  filter: drop-shadow(0 0 14px rgba(183,110,121,0.75));
+  transform: scale(1.12);
+}

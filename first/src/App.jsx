@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
 import AddStudent from "./pages/AddStudent";
 import ViewStudents from "./pages/ViewStudent";
 import Pagination from "./pages/pagination";
