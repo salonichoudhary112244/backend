@@ -17,7 +17,9 @@ export default function Navbar() {
 
       {/* MENU */}
       <ul className="nav-menu">
-        <li>Shop</li>
+         <li>
+    <Link to="/products" className="nav-link">Shop</Link>
+  </li>
         <li>Skincare</li>
         <li>Hair Care</li>
         <li>Makeup</li>

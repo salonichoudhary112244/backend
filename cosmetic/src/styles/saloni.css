@@ -1,3 +1,6 @@
+/* =========================
+   GLOBAL
+========================= */
 body {
   margin: 0;
   font-family: "Georgia", serif;
@@ -11,99 +14,83 @@ body {
   background: linear-gradient(#fff5f7, #ffffff);
 }
 
-/* ===========================
-   HERO
-=========================== */
-
-.hero {
-  position: relative;
-  padding: 100px 80px;
-  background: linear-gradient(
-    to right,
-    rgba(255,245,247,0.95),
-    rgba(255,245,247,0.7)
-  );
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  bottom: -60px;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  background: #fff5f7;
-  border-radius: 100% 100% 0 0;
-}
-
-.hero-left h1 {
-  font-size: 64px;
-  color: #b76e79;
-}
-
-.hero-left p {
-  font-size: 20px;
-  margin-bottom: 24px;
-}
-
-.hero-right img {
-  width: 380px;
-  max-width: 100%;
-  border-radius: 24px;
-  box-shadow: 0 30px 80px rgba(183,110,121,0.25);
-}
-
-/* ===========================
+/* =========================
    BUTTON
-=========================== */
-
+========================= */
 .shop-btn {
-  background: #e8a6b2;
+  background: linear-gradient(135deg, #e8a6b2, #f2b9c4);
   color: white;
-  padding: 12px 26px;
+  padding: 14px 34px;
   border-radius: 30px;
   text-decoration: none;
+  box-shadow: 0 18px 50px rgba(183,110,121,0.4);
+  transition: all 0.3s ease;
 }
 
 .shop-btn:hover {
   background: #d88c9a;
+  transform: translateY(-3px);
 }
 
-/* ===========================
-   SECTIONS
-=========================== */
+/* =========================
+   HERO BANNER
+========================= */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
 
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  filter: brightness(1.08) contrast(1.02);
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255,245,247,0.88) 30%,
+    rgba(255,245,247,0.45) 55%,
+    rgba(255,245,247,0.05) 100%
+  );
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 82px;
+  letter-spacing: 8px;
+  font-weight: 600;
+  color: #b76e79;
+}
+
+.hero-subtitle {
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: #c08b94;
+  margin: 12px 0 30px;
+}
+
+/* =========================
+   CATEGORY
+========================= */
 .section {
   text-align: center;
   padding: 80px 40px;
-  position: relative;
 }
-
-.section::before {
-  content: "";
-  width: 60px;
-  height: 4px;
-  background: #e8a6b2;
-  display: block;
-  margin: 0 auto 20px;
-  border-radius: 10px;
-}
-
-.section h2 {
-  font-size: 38px;
-}
-
-.sub-text {
-  color: #9b6a71;
-}
-
-/* ===========================
-   CATEGORY
-=========================== */
 
 .category-grid {
   display: flex;
@@ -123,7 +110,6 @@ body {
 
 .category-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(183,110,121,0.2);
 }
 
 .category-card img {
@@ -132,279 +118,125 @@ body {
   object-fit: cover;
 }
 
-/* ===========================
-   DISCOVER
-=========================== */
-
-.discover {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 80px;
-}
-
-.discover img {
-  width: 340px;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(183,110,121,0.18);
-}
-
-/* ===========================
-   PRODUCTS
-=========================== */
-
-.product-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.product-card {
-  width: 240px;
-  background: white;
-  padding: 20px;
-  border-radius: 26px;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.06);
-}
-
-/* ===========================
-   BRAND STORY
-=========================== */
-
-.brand-story {
-  text-align: center;
-  padding: 90px 40px;
-  background: #fff;
-}
-
-.story-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
-}
-
-/* ===========================
-   FOOTER
-=========================== */
-
-.footer {
-  margin-top: 80px;
-  padding: 50px 20px 30px;
-  text-align: center;
-  background:
-    radial-gradient(circle at top, #fde6eb, transparent 60%),
-    #fff;
-  border-top: 1px solid rgba(183,110,121,0.15);
-  color: #a77a80;
-}
-
 /* =========================
-   🌸 HERO SALONI BRAND
+   DISCOVER BANNER
 ========================= */
-
-.hero-saloni {
-  color: #e8a6b2; /* soft pink */
-  font-size: 64px;
-  letter-spacing: 6px;
-  font-weight: 600;
-
-  filter: drop-shadow(0 0 10px rgba(232,166,178,0.5));
-  transition: all 0.4s ease;
-
-  /* 🌬️ auto floating */
-  animation: heroFloat 5s ease-in-out infinite;
-}
-
-@keyframes heroFloat {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
-}
-
-/* 🖱️ hover → dark pink */
-.hero-saloni:hover {
-  color: #b76e79;
-  filter: drop-shadow(0 0 16px rgba(183,110,121,0.8));
-  transform: scale(1.05);
-}
-
-/* tagline polish */
-.hero-tagline {
-  color: #9b6a71;
-  letter-spacing: 2px;
-  font-size: 18px;
-}
-
-/* =========================
-   🌸 HERO RIGHT IMAGE FIX
-========================= */
-
-.hero-right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-right img {
-  width: 480px;              /* 🔥 Desktop perfect size */
-  max-width: 100%;
-  height: auto;
-
-  border-radius: 28px;
-  object-fit: cover;
-
-  box-shadow: 0 40px 100px rgba(183,110,121,0.3);
-
-  /* smooth animation */
-  animation: floatSoft 6s ease-in-out infinite;
-  transition: transform 0.6s ease, box-shadow 0.6s ease;
-}
-
-/* 🖱️ Hover effect */
-.hero-right img:hover {
-  transform: translateY(-14px) scale(1.06);
-  box-shadow: 0 55px 120px rgba(183,110,121,0.45);
-}
-
-/* 📱 Mobile fix */
-@media (max-width: 768px) {
-  .hero-right img {
-    width: 300px;            /* mobile balanced */
-    margin-top: 30px;
-  }
-}
-
-/* =========================
-   🌸 HERO – IMAGE STYLE MATCH
-========================= */
-
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 120px 90px;
-  background: linear-gradient(135deg, #fff1f4, #fff7f9);
-  overflow: hidden;
-}
-
-/* LEFT TEXT */
-.hero-left {
-  max-width: 480px;
-}
-
-.hero-saloni {
-  font-size: 72px;
-  letter-spacing: 6px;
-  color: #b76e79;
-  margin: 0;
-}
-
-.hero-tagline {
-  font-size: 18px;
-  color: #9b6a71;
-  margin: 18px 0 34px;
-}
-
-/* RIGHT IMAGE */
-.hero-right img {
-  width: 520px;              /* 🔥 IMAGE BADI */
-  max-width: 100%;
-  height: auto;
-  border-radius: 32px;
-  box-shadow: 0 50px 130px rgba(183,110,121,0.45);
-  animation: heroFloat 6s ease-in-out infinite;
-}
-
-/* FLOAT EFFECT */
-@keyframes heroFloat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-  100% { transform: translateY(0); }
-}
-
-
-
-
-
-
-
-
-/* =========================
-   🌸 HERO BANNER (IMAGE + OVERLAY)
-========================= */
-
-.hero-banner {
+.discover-banner {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 520px;
   overflow: hidden;
-  background: #fff5f7;
+    margin-bottom: 0;   /* add this */
 }
 
-/* Background Image */
-.hero-bg {
+.discover-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center right; /* girl side visible */
-  filter: brightness(0.95);
 }
 
-/* Soft pink overlay */
-.hero-banner::after {
+.discover-banner::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
     rgba(255,245,247,0.92) 35%,
-    rgba(255,245,247,0.65) 55%,
+    rgba(255,245,247,0.6) 60%,
     rgba(255,245,247,0.15) 100%
   );
 }
 
-/* Text Overlay */
-.hero-overlay {
+.discover-overlay {
   position: absolute;
   top: 50%;
   left: 8%;
   transform: translateY(-50%);
   z-index: 2;
+  max-width: 420px;
 }
 
-/* SALONI text */
-.hero-title {
-  font-size: 82px;
-  letter-spacing: 8px;
-  font-weight: 600;
+.discover-overlay h2 {
+  font-size: 42px;
   color: #b76e79;
-  margin: 0;
 }
 
-/* Crafted Beauty */
-.hero-subtitle {
-  font-size: 22px;
-  letter-spacing: 3px;
-  color: #c08b94;
-  margin: 12px 0 30px;
+.discover-overlay p {
+  color: #9b6a71;
+  margin-bottom: 26px;
 }
 
-/* Shop Now button */
-.hero-btn {
-  padding: 14px 34px;
-  font-size: 15px;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #e8a6b2, #f2b9c4);
-  color: white;
-  text-decoration: none;
-  box-shadow: 0 16px 40px rgba(183,110,121,0.35);
-  transition: all 0.35s ease;
+/* =========================
+   WHY SALONI
+========================= */
+.brand-story {
+  text-align: center;
+  padding: 10px 40px;   /* 👈 gap kam */
+  background: linear-gradient(#fff7f9, #ffffff);
 }
 
-.hero-btn:hover {
-  background: #d88c9a;
-  transform: translateY(-3px);
-  box-shadow: 0 22px 55px rgba(183,110,121,0.45);
+.brand-desc {
+  max-width: 620px;
+  margin: 0 auto 60px;
+  color: #9b6a71;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.story-card {
+  background: #fff;
+  padding: 26px;
+  border-radius: 26px;
+  box-shadow: 0 18px 45px rgba(183,110,121,0.12);
+  transition: all 0.4s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-10px);
+}
+
+/* =========================
+   BEST SELLERS
+========================= */
+.best-sellers {
+  text-align: center;
+  padding: 90px 40px;
+  background: #fff3f6;
+}
+
+.best-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.best-card {
+  width: 260px;
+  background: #fff;
+  border-radius: 26px;
+  padding: 20px;
+  box-shadow: 0 20px 45px rgba(183,110,121,0.18);
+}
+
+.best-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  padding: 50px 20px;
+  text-align: center;
+  color: #a77a80;
 }

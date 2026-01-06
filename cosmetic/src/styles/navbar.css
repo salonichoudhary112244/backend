@@ -191,3 +191,13 @@
   filter: drop-shadow(0 0 14px rgba(183,110,121,0.75));
   transform: scale(1.12);
 }
+
+.nav-link {
+  text-decoration: none;
+  color: #7a4a4f;
+  font-size: 14px;
+}
+
+.nav-link:hover {
+  color: #b76e79;
+}
