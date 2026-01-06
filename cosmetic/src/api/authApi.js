@@ -146,7 +146,56 @@ export const createVariant = (productId, data) =>
 export const getVariants = (productId) =>
   API.get(`/products/${productId}/variants`);
 
+// ================= VARIANT PRICING APIs =================
 
+// GET pricing
+export const getVariantPricing = (variantId) =>
+  API.get(`/variants/${variantId}/pricing`);
+
+// APPLY DISCOUNT ON VARIANT
+export const setVariantDiscount = (variantId, data) =>
+  API.post(`/variants/${variantId}/pricing/discount`, data);
+
+// SET VARIANT PRICE
+export const setVariantPrice = (variantId, data) =>
+  API.post(`/variants/${variantId}/pricing/price`, data);
+
+// ================= PRODUCT IMAGES APIs =================
+
+// UPLOAD PRODUCT IMAGES
+export const uploadProductImages = (productId, formData, variantId) => {
+  let url = `/products/${productId}/images`;
+
+  if (variantId) {
+    url += `?variantId=${variantId}`;
+  }
+
+  return API.post(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+// ================= PRODUCT FEATURES APIs =================
+
+// SAVE PRODUCT FEATURES (BULK)
+export const saveProductFeatures = (productId, features) =>
+  API.post(`/products/${productId}/features/bulk`, features);
+// ================= PRODUCT SPECIFICATIONS APIs =================
+
+// SAVE PRODUCT SPECIFICATIONS (BULK)
+export const saveProductSpecs = (productId, specs) =>
+  API.post(`/products/${productId}/specifications/bulk`, specs);
+
+// ================= MANUFACTURER INFO APIs =================
+
+// SAVE MANUFACTURER INFO
+export const saveManufacturerInfo = (productId, content) =>
+  API.post(`/products/${productId}/manufacturer`, content, {
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  });
 
 
 

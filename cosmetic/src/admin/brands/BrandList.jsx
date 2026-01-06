@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllBrands, createBrandsBulk } from "../../api/authApi";
-import AdminLayout from "../products/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createProduct } from "../../api/authApi";
-import AdminLayout from "./AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 
 
 

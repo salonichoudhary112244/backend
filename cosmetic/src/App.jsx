@@ -16,6 +16,15 @@ import AttributePanel from "./admin/attributes/AttributePanel";
 
 import ProductAttributeMapping from "./admin/productAttributes/ProductAttributeMapping";
 import VariantPanel from "./admin/variants/VariantPanel";
+/* ========= ADMIN MODULES ========= */
+import VariantPricingPanel from "./admin/Pricing/VariantPricingPanel";
+import ProductImagePanel from "./admin/images/ProductImagePanel";
+import ProductFeaturePanel from "./admin/features/ProductFeaturePanel";
+import ProductSpecificationPanel from "./admin/specs/ProductSpecificationPanel";
+import ProductManufacturerPanel from "./admin/manufacturer/ProductManufacturerPanel";
+// import CreateProduct from "./admin/products/CreateProduct";
+import ProductPanel from "./admin/products/ProductPanel";
+
 export default function App() {
   return (
     <Routes>
@@ -56,6 +65,16 @@ export default function App() {
   element={<VariantPanel />}
 />
 
+    {/* ===== ADMIN ROUTES ===== */}
+      <Route path="/admin/Pricing" element={<VariantPricingPanel />} />
+      <Route path="/admin/images" element={<ProductImagePanel />} />
+      <Route path="/admin/features" element={<ProductFeaturePanel />} />
+      <Route path="/admin/specs" element={<ProductSpecificationPanel />} />
+      <Route path="/admin/manufacturer" element={<ProductManufacturerPanel />} />
+
+{/* <Route path="/admin/products" element={<CreateProduct/>} /> */}
+
+<Route path="/admin/products" element={<ProductPanel />} />
     </Routes>
 
    
