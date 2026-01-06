@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { saveManufacturerInfo } from "../../api/authApi";
 import AdminLayout from "../layout/AdminLayout";
+import FlowNav from "../layout/FlowNav";
+<FlowNav
+  nextPath="/admin/products/list"
+/>
 
 export default function ProductManufacturerPanel() {
 

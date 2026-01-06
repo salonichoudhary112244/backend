@@ -2,10 +2,16 @@ import { useState } from "react";
 import { createVariant, getVariants } from "../../api/authApi";
 import AdminLayout from "../layout/AdminLayout";
 import { useNavigate } from "react-router-dom";
+import FlowNav from "../layout/FlowNav";
+  <FlowNav
+  skipPath="/admin/pricing"
+  nextPath="/admin/pricing"
+/>
 
 export default function VariantPanel() {
 
   const navigate = useNavigate();
+
 
   // states
   const [productId, setProductId] = useState("");

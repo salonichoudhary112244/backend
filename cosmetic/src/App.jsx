@@ -24,6 +24,11 @@ import ProductSpecificationPanel from "./admin/specs/ProductSpecificationPanel";
 import ProductManufacturerPanel from "./admin/manufacturer/ProductManufacturerPanel";
 // import CreateProduct from "./admin/products/CreateProduct";
 import ProductPanel from "./admin/products/ProductPanel";
+import Dashboard from "./admin/Dashboard";
+import ProductList from "./admin/products/ProductListing";
+import AdminLayout from "./admin/layout/AdminLayout";
+
+
 
 export default function App() {
   return (
@@ -39,42 +44,19 @@ export default function App() {
 
       
       {/* ADMIN ROUTES */}
-      <Route
-        path="/admin/products/create"
-        element={<CreateProduct />}
-      />
-
-      {/* // Brand routes */}
-<Route path="/admin/brands" element={<BrandList />} />
-
-         {/* categories */}
-<Route path="/admin/categories" element={<CategoryList />} />
-
- {/* // attributes */}
-    <Route path="/admin/attributes" element={<AttributePanel/>} />
-
-{/* ProductAttributeMapping */}
-<Route
-  path="/admin/product-attributes"
-  element={<ProductAttributeMapping />}
-/>
-
-       {/* VariantPanel */}
-<Route
-  path="/admin/variants"
-  element={<VariantPanel />}
-/>
-
-    {/* ===== ADMIN ROUTES ===== */}
-      <Route path="/admin/Pricing" element={<VariantPricingPanel />} />
-      <Route path="/admin/images" element={<ProductImagePanel />} />
-      <Route path="/admin/features" element={<ProductFeaturePanel />} />
-      <Route path="/admin/specs" element={<ProductSpecificationPanel />} />
-      <Route path="/admin/manufacturer" element={<ProductManufacturerPanel />} />
-
-{/* <Route path="/admin/products" element={<CreateProduct/>} /> */}
-
-<Route path="/admin/products" element={<ProductPanel />} />
+ <Route path="/admin" element={<AdminLayout />}>
+   {/* 👇 DEFAULT PAGE */}
+  <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="products/create" element={<ProductPanel />} />
+        <Route path="variants" element={<VariantPanel />} />
+        <Route path="pricing" element={<VariantPricingPanel />} />
+        <Route path="images" element={<ProductImagePanel />} />
+        <Route path="features" element={<ProductFeaturePanel />} />
+        <Route path="specifications" element={<ProductSpecificationPanel />} />
+        <Route path="manufacturer" element={<ProductManufacturerPanel />} />
+        <Route path="products/list" element={<ProductList />} />
+      </Route>
     </Routes>
 
    

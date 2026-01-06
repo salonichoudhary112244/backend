@@ -2,6 +2,11 @@
 import { useState } from "react";
 import AdminLayout from "../layout/AdminLayout";
 import { createProduct } from "../../api/authApi";
+import FlowNav from "../layout/FlowNav";
+
+<FlowNav
+  nextPath="/admin/variants"
+/>
 
 export default function ProductPanel() {
 

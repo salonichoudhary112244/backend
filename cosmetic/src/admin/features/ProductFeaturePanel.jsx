@@ -1,5 +1,10 @@
 import { useState } from "react";
 import AdminLayout from "../layout/AdminLayout";
+import FlowNav from "../layout/FlowNav";
+<FlowNav
+  skipPath="/admin/specifications"
+  nextPath="/admin/specifications"
+/>
 
 export default function ProductFeaturePanel() {
 

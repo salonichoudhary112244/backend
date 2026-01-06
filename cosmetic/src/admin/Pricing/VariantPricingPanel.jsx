@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { setVariantPrice } from "../../api/authApi";
 import AdminLayout from "../layout/AdminLayout";
+import FlowNav from "../layout/FlowNav";
+<FlowNav
+  skipPath="/admin/images"
+  nextPath="/admin/images"
+/>
 
 export default function VariantPricingPanel() {
 

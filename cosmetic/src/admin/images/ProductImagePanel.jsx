@@ -1,6 +1,11 @@
 import { uploadProductImages } from "../../api/authApi";
 import AdminLayout from "../layout/AdminLayout";
 import { useState } from "react";
+import FlowNav from "../layout/FlowNav";
+<FlowNav
+  skipPath="/admin/features"
+  nextPath="/admin/features"
+/>
 
 export default function ProductImagePanel() {
 
