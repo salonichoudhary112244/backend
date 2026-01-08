@@ -190,12 +190,9 @@ export const saveProductSpecs = (productId, specs) =>
 // ================= MANUFACTURER INFO APIs =================
 
 // SAVE MANUFACTURER INFO
-export const saveManufacturerInfo = (productId, content) =>
-  API.post(`/products/${productId}/manufacturer`, content, {
-    headers: {
-      "Content-Type": "text/plain",
-    },
-  });
+export const saveManufacturerInfo = (data) =>
+  API.post("/products/manufacturer", data);
+
 
 
 

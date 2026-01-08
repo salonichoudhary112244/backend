@@ -2,8 +2,6 @@ import { useState } from "react";
 import { createProduct } from "../../api/authApi";
 import AdminLayout from "../layout/AdminLayout";
 
-
-
 export default function CreateProduct() {
 
   const [form, setForm] = useState({
@@ -15,20 +13,38 @@ export default function CreateProduct() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value
+    });
   };
 
-const submit = async () => {
-  try {
-    const res = await createProduct(form);
-    console.log("API RESPONSE:", res.data);
-    alert("Product created successfully");
-  } catch (err) {
-    console.error(err);
-    alert("Error creating product");
-  }
-};
+  const submit = async () => {
+    try {
+      // 🔥 DTO EXACT PAYLOAD
+      const payload = {
+        name: form.name,
+        slug: form.slug,
+        description: form.description,
+        categoryId: Number(form.categoryId), // ✅ Long
+        brandId: Number(form.brandId)         // ✅ Long
+      };
 
+      const res = await createProduct(payload);
+
+      console.log("PRODUCT CREATED 👉", res.data);
+      alert("Product created successfully");
+
+      // 🔹 IMPORTANT FOR NEXT STEPS
+      localStorage.setItem("productId", res.data.id);
+
+    } catch (err) {
+      console.error("CREATE PRODUCT ERROR 👉", err);
+      alert("Error creating product");
+    }
+  };
 
   return (
     <AdminLayout>
@@ -41,36 +57,41 @@ const submit = async () => {
         <input
           name="name"
           placeholder="Product Name"
-          className="border p-2 w-full"
+          value={form.name}
           onChange={handleChange}
+          className="border p-2 w-full"
         />
 
         <input
           name="slug"
           placeholder="Slug (unique)"
-          className="border p-2 w-full"
+          value={form.slug}
           onChange={handleChange}
+          className="border p-2 w-full"
         />
 
         <input
           name="categoryId"
           placeholder="Category ID"
-          className="border p-2 w-full"
+          value={form.categoryId}
           onChange={handleChange}
+          className="border p-2 w-full"
         />
 
         <input
           name="brandId"
           placeholder="Brand ID"
-          className="border p-2 w-full"
+          value={form.brandId}
           onChange={handleChange}
+          className="border p-2 w-full"
         />
 
         <textarea
           name="description"
           placeholder="Description"
-          className="border p-2 w-full"
+          value={form.description}
           onChange={handleChange}
+          className="border p-2 w-full"
         />
 
         <button

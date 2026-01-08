@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { saveProductFeatures } from "../../api/authApi";
 import FlowNav from "../layout/FlowNav";
 
 export default function ProductFeaturePanel() {
@@ -27,10 +28,27 @@ export default function ProductFeaturePanel() {
       return;
     }
 
-    console.log("FEATURE PREVIEW 👉", cleaned);
-
     setPreviewFeatures(prev => [...prev, ...cleaned]);
     setFeatures([""]);
+  };
+
+  // 🔥 DTO MATCHING SAVE
+  const saveFeatures = async () => {
+    if (previewFeatures.length === 0) {
+      alert("No features to save");
+      return;
+    }
+
+    try {
+      await saveProductFeatures(productId, previewFeatures);
+      alert("Features saved successfully");
+
+      // optional reset
+      setPreviewFeatures([]);
+    } catch (err) {
+      console.error("SAVE FEATURES ERROR 👉", err);
+      alert("Error saving features");
+    }
   };
 
   return (
@@ -42,11 +60,11 @@ export default function ProductFeaturePanel() {
         value={productId}
         readOnly
         className="border p-2 mb-4 w-[300px] bg-gray-100"
-      />
+      /> 
 
       {/* ADD FEATURES */}
       <div className="bg-white p-4 rounded mb-4 w-[500px]">
-        <h3 className="font-semibold mb-2">Add Features (Preview)</h3>
+        <h3 className="font-semibold mb-2">Add Features</h3>
 
         {features.map((f, i) => (
           <input
@@ -72,31 +90,34 @@ export default function ProductFeaturePanel() {
 
           <button
             onClick={addToPreview}
-            className="bg-pink-500 text-white px-4 py-2 rounded"
+            className="bg-gray-200 px-4 py-2 rounded"
           >
-            Add to Preview
+            Preview
           </button>
         </div>
-
-        <p className="text-sm text-gray-500 mt-2">
-          * Features will be reviewed & approved by Admin
-        </p>
       </div>
 
       {/* PREVIEW LIST */}
       {previewFeatures.length > 0 && (
-        <div className="bg-white p-4 rounded w-[500px]">
-          <h3 className="font-semibold mb-2">Added Features (Preview)</h3>
+        <div className="bg-white p-4 rounded w-[500px] mb-4">
+          <h3 className="font-semibold mb-2">Preview Features</h3>
 
           <ul className="list-disc pl-5 space-y-1">
             {previewFeatures.map((f, i) => (
               <li key={i}>{f}</li>
             ))}
           </ul>
+
+          <button
+            onClick={saveFeatures}
+            className="mt-4 bg-pink-500 text-white px-6 py-2 rounded"
+          >
+            Save Features
+          </button>
         </div>
       )}
 
-      {/* 🔽 FLOW NAVIGATION */}
+      {/* 🔽 FLOW NAV */}
       <FlowNav
         skipPath="/admin/specifications"
         nextPath="/admin/specifications"

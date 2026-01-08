@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { setVariantPrice } from "../../api/authApi";
+import { setVariantPrice, setVariantDiscount } from "../../api/authApi";
 import FlowNav from "../layout/FlowNav";
 
 export default function VariantPricingPanel() {
@@ -10,44 +10,47 @@ export default function VariantPricingPanel() {
   const [discountType, setDiscountType] = useState("PERCENTAGE");
   const [discountValue, setDiscountValue] = useState("");
 
-  // 🔹 AUTO LOAD VARIANT ID (BEST PRACTICE)
+  // 🔹 AUTO LOAD VARIANT ID
   useEffect(() => {
     const vid = localStorage.getItem("variantId");
-
     if (!vid) {
       alert("Please create variant first");
       return;
     }
-
     setVariantId(vid);
   }, []);
 
-  // 🔥 REAL DISCOUNT CALCULATION
-  let finalPrice = sellingPrice;
-
-  if (discountValue) {
-    if (discountType === "PERCENTAGE") {
-      finalPrice = sellingPrice - (sellingPrice * discountValue) / 100;
-    } else {
-      finalPrice = sellingPrice - discountValue;
-    }
-  }
-
+  // 🔹 SAVE PRICE (VariantPriceRequestDto)
   const savePrice = async () => {
     try {
-      const payload = {
-        mrp,
-        sellingPrice: finalPrice
+      const pricePayload = {
+        mrp: Number(mrp),
+        sellingPrice: Number(sellingPrice)
       };
 
-      const res = await setVariantPrice(variantId, payload);
-
-      console.log("PRICE SAVED 👉", res.data);
+      await setVariantPrice(variantId, pricePayload);
       alert("Price saved successfully");
 
     } catch (err) {
       console.error("PRICE ERROR 👉", err);
       alert("Error saving price");
+    }
+  };
+
+  // 🔹 APPLY DISCOUNT (VariantDiscountRequestDto)
+  const applyDiscount = async () => {
+    try {
+      const discountPayload = {
+        discountType,
+        discountValue: Number(discountValue)
+      };
+
+      await setVariantDiscount(variantId, discountPayload);
+      alert("Discount applied successfully");
+
+    } catch (err) {
+      console.error("DISCOUNT ERROR 👉", err);
+      alert("Error applying discount");
     }
   };
 
@@ -63,21 +66,31 @@ export default function VariantPricingPanel() {
 
       <input
         placeholder="MRP"
-        onChange={(e) => setMrp(Number(e.target.value))}
+        value={mrp}
+        onChange={(e) => setMrp(e.target.value)}
         className="border p-2 mb-2 block"
       />
 
       <input
         placeholder="Selling Price"
-        onChange={(e) => setSellingPrice(Number(e.target.value))}
+        value={sellingPrice}
+        onChange={(e) => setSellingPrice(e.target.value)}
         className="border p-2 mb-4 block"
       />
 
-      <h3 className="font-semibold mb-2">Discount (Preview Only)</h3>
+      <button
+        onClick={savePrice}
+        className="bg-black text-white px-6 py-2 rounded mb-6"
+      >
+        Save Price
+      </button>
+
+      <h3 className="font-semibold mb-2">Discount</h3>
 
       <select
+        value={discountType}
         onChange={(e) => setDiscountType(e.target.value)}
-        className="border p-2 mb-2"
+        className="border p-2 mb-2 block"
       >
         <option value="PERCENTAGE">Percentage</option>
         <option value="FLAT">Flat</option>
@@ -85,22 +98,19 @@ export default function VariantPricingPanel() {
 
       <input
         placeholder="Discount Value"
-        onChange={(e) => setDiscountValue(Number(e.target.value))}
+        value={discountValue}
+        onChange={(e) => setDiscountValue(e.target.value)}
         className="border p-2 mb-3 block"
       />
 
-      <p className="text-green-600 font-semibold mb-4">
-        Final Price after discount: ₹{finalPrice || sellingPrice}
-      </p>
-
       <button
-        onClick={savePrice}
+        onClick={applyDiscount}
         className="bg-pink-500 text-white px-6 py-2 rounded"
       >
-        Save Price
+        Apply Discount
       </button>
 
-      {/* 🔽 FLOW NAVIGATION (CORRECT PLACE) */}
+      {/* 🔽 FLOW */}
       <FlowNav
         skipPath="/admin/images"
         nextPath="/admin/images"

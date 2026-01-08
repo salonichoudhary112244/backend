@@ -20,27 +20,32 @@ export default function ProductManufacturerPanel() {
     setProductId(pid);
   }, []);
 
-  const save = async () => {
-    if (!content.trim()) {
-      alert("Manufacturer content required");
-      return;
-    }
+const save = async () => {
+  if (!content.trim()) {
+    alert("Manufacturer content required");
+    return;
+  }
 
-    try {
-      const res = await saveManufacturerInfo(productId, content);
-
-      console.log("SAVE MANUFACTURER INFO 👉", res.data);
-      alert("Manufacturer info saved");
-
-      // 🔥 SHOW ON PAGE
-      setSavedContent(content);
-      setContent("");
-
-    } catch (err) {
-      console.error("SAVE MANUFACTURER ERROR 👉", err);
-      alert("Error saving manufacturer info");
-    }
+  const payload = {
+    productId: Number(productId), // 🔥 DTO field
+    content                    // 🔥 DTO field
   };
+
+  try {
+    const res = await saveManufacturerInfo(payload);
+
+    console.log("SAVE MANUFACTURER INFO 👉", res.data);
+    alert("Manufacturer info saved");
+
+    setSavedContent(content);
+    setContent("");
+
+  } catch (err) {
+    console.error("SAVE MANUFACTURER ERROR 👉", err);
+    alert("Error saving manufacturer info");
+  }
+};
+
 
   return (
     <>

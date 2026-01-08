@@ -32,16 +32,25 @@ export default function ProductImagePanel() {
     try {
       const res = await uploadProductImages(productId, form);
 
+      /*
+        Backend returns:
+        List<ProductImageResponseDto>
+        {
+          id,
+          productId,
+          variantId,
+          imageUrl,
+          isPrimary,
+          displayOrder
+        }
+      */
+
       console.log("UPLOAD IMAGES RESPONSE 👉", res.data);
       alert("Images uploaded successfully");
 
-      // 🔥 Local preview
-      const previews = files.map((file) => ({
-        url: URL.createObjectURL(file),
-        name: file.name
-      }));
+      // 🔥 USE BACKEND DTO RESPONSE
+      setUploadedImages(prev => [...prev, ...res.data]);
 
-      setUploadedImages((prev) => [...prev, ...previews]);
       setFiles([]);
 
     } catch (err) {
@@ -54,15 +63,15 @@ export default function ProductImagePanel() {
     <>
       <h2 className="text-xl font-semibold mb-4">Product Images</h2>
 
-      {/* INPUTS */}
-      <div className="bg-white p-4 rounded mb-4 w-[400px] space-y-3">
+      {/* PRODUCT ID */}
+      <input
+        value={productId}
+        readOnly
+        className="border p-2 mb-4 w-[300px] bg-gray-100"
+      />
 
-        <input
-          value={productId}
-          readOnly
-          className="border p-2 w-full bg-gray-100"
-        />
-
+      {/* FILE UPLOAD */}
+      <div className="bg-white p-4 rounded mb-6 w-[400px] space-y-3">
         <input
           type="file"
           multiple
@@ -73,34 +82,39 @@ export default function ProductImagePanel() {
           onClick={upload}
           className="bg-pink-500 text-white px-4 py-2 rounded"
         >
-          Upload
+          Upload Images
         </button>
       </div>
 
-      {/* IMAGE PREVIEW */}
+      {/* IMAGE PREVIEW (DTO BASED) */}
       {uploadedImages.length > 0 && (
         <>
           <h3 className="font-semibold mb-2">Uploaded Images</h3>
 
           <div className="grid grid-cols-4 gap-4">
-            {uploadedImages.map((img, index) => (
+            {uploadedImages.map((img) => (
               <div
-                key={index}
+                key={img.id}
                 className="border rounded p-2 flex flex-col items-center"
               >
                 <img
-                  src={img.url}
-                  alt={img.name}
+                  src={img.imageUrl}
+                  alt="product"
                   className="w-32 h-32 object-cover"
                 />
-                <span className="text-xs mt-1">{img.name}</span>
+
+                {img.isPrimary && (
+                  <span className="text-xs text-green-600 mt-1">
+                    Primary Image
+                  </span>
+                )}
               </div>
             ))}
           </div>
         </>
       )}
 
-      {/* 🔽 FLOW NAVIGATION (CORRECT PLACE) */}
+      {/* 🔽 FLOW NAV */}
       <FlowNav
         skipPath="/admin/features"
         nextPath="/admin/features"

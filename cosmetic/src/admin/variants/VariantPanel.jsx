@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createVariant, getVariants } from "../../api/authApi";
 import FlowNav from "../layout/FlowNav";
 
@@ -10,8 +10,15 @@ export default function VariantPanel() {
   const [variant, setVariant] = useState({
     sku: "",
     price: "",
-    stock: ""
+    stock: "",
+    attributes: {}   // ✅ DTO REQUIRED
   });
+
+  // 🔹 AUTO LOAD PRODUCT ID
+  useEffect(() => {
+    const pid = localStorage.getItem("productId");
+    if (pid) setProductId(pid);
+  }, []);
 
   const handleChange = (e) => {
     setVariant({
@@ -41,19 +48,30 @@ export default function VariantPanel() {
       return;
     }
 
-    try {
-      const payload = {
-        sku: variant.sku,
-        price: variant.price,
-        stock: variant.stock
-      };
+    // ✅ DTO MATCH PAYLOAD
+    const payload = {
+      sku: variant.sku,
+      price: Number(variant.price),
+      stock: Number(variant.stock),
+      attributes: variant.attributes // 👈 EMPTY MAP FOR NOW
+    };
 
+    try {
       const res = await createVariant(productId, payload);
 
-      console.log("ADD VARIANT 👉", res.data);
+      console.log("ADD VARIANT RESPONSE 👉", res.data);
       alert("Variant created");
 
-      setVariant({ sku: "", price: "", stock: "" });
+      // 🔥 Save variantId for next steps
+      localStorage.setItem("variantId", res.data.id);
+
+      setVariant({
+        sku: "",
+        price: "",
+        stock: "",
+        attributes: {}
+      });
+
       loadVariants();
 
     } catch (err) {
@@ -67,21 +85,11 @@ export default function VariantPanel() {
       <h2 className="text-xl font-semibold mb-4">Variants</h2>
 
       {/* PRODUCT ID */}
-      <div className="bg-white p-4 mb-6 border rounded w-[400px]">
-        <input
-          placeholder="Product ID"
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          className="border p-2 w-full"
-        />
-
-        <button
-          onClick={loadVariants}
-          className="mt-3 bg-gray-200 px-4 py-1 rounded"
-        >
-          Load Variants
-        </button>
-      </div>
+      <input
+        value={productId}
+        readOnly
+        className="border p-2 mb-4 w-[300px] bg-gray-100"
+      />
 
       {/* ADD VARIANT */}
       <div className="bg-white p-4 mb-6 border rounded w-[500px] space-y-3">
@@ -96,6 +104,7 @@ export default function VariantPanel() {
         <input
           name="price"
           placeholder="Price"
+          type="number"
           value={variant.price}
           onChange={handleChange}
           className="border p-2 w-full"
@@ -104,6 +113,7 @@ export default function VariantPanel() {
         <input
           name="stock"
           placeholder="Stock"
+          type="number"
           value={variant.stock}
           onChange={handleChange}
           className="border p-2 w-full"

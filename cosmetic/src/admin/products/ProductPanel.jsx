@@ -13,19 +13,34 @@ export default function ProductPanel() {
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
   const saveProduct = async () => {
     try {
-      const res = await createProduct(form);
+      // 🔥 DTO SAFE PAYLOAD
+      const payload = {
+        name: form.name,
+        slug: form.slug,
+        description: form.description,
+        brandId: Number(form.brandId),       // ✅ Long
+        categoryId: Number(form.categoryId)  // ✅ Long
+      };
+
+      const res = await createProduct(payload);
 
       console.log("PRODUCT CREATE RESPONSE 👉", res.data);
       alert("Product created successfully");
 
+      // 🔹 NEXT STEPS KE LIYE
+      localStorage.setItem("productId", res.data.id);
+
+      // reset form
       setForm({
         name: "",
         slug: "",
@@ -97,8 +112,8 @@ export default function ProductPanel() {
 
       </div>
 
-      {/* FLOW NAV */}
-      <FlowNav nextPath="/admin/variants" />
+      {/* 🔽 FLOW CONTINUE */}
+      <FlowNav nextPath="/admin/attribute-mapping" />
     </>
   );
 }

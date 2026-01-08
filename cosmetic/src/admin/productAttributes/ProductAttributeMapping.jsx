@@ -11,14 +11,15 @@ export default function ProductAttributeMapping() {
 
   const [productId, setProductId] = useState("");
   const [attributes, setAttributes] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState([]); // List<Long>
 
-  // 🔹 AUTO LOAD PRODUCT ID (BEST PRACTICE)
+  // 🔹 AUTO LOAD PRODUCT ID
   useEffect(() => {
     const pid = localStorage.getItem("productId");
-    if (pid) setProductId(pid);
+    if (pid) setProductId(Number(pid));
   }, []);
 
+  // 🔹 LOAD ATTRIBUTES
   useEffect(() => {
     loadAttributes();
   }, []);
@@ -26,12 +27,13 @@ export default function ProductAttributeMapping() {
   const loadAttributes = async () => {
     try {
       const res = await getAllAttributes();
-      setAttributes(res.data);
+      setAttributes(res.data); // AttributeResponseDto[]
     } catch (err) {
       console.error("GET ATTRIBUTES ERROR 👉", err);
     }
   };
 
+  // 🔹 TOGGLE ATTRIBUTE ID
   const toggleAttribute = (id) => {
     setSelected((prev) =>
       prev.includes(id)
@@ -40,19 +42,24 @@ export default function ProductAttributeMapping() {
     );
   };
 
+  // 🔹 SUBMIT → ProductAttributeRequestDto
   const submitMapping = async () => {
     if (!productId || selected.length === 0) {
       alert("Product ID and at least one attribute required");
       return;
     }
 
+    const payload = {
+      attributeIds: selected   // ✅ DTO MATCH
+    };
+
     try {
-      const payload = { attributeIds: selected };
       const res = await assignAttributesToProduct(productId, payload);
 
       alert(res.data); // "Attributes assigned to product"
 
-      navigate("/admin/variants"); // ✅ FLOW CONTINUE
+      // 🔁 FLOW CONTINUE
+      navigate("/admin/variants");
 
     } catch (err) {
       console.error("ATTRIBUTE MAP ERROR 👉", err);

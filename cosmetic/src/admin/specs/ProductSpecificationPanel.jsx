@@ -4,7 +4,9 @@ import FlowNav from "../layout/FlowNav";
 export default function ProductSpecificationPanel() {
 
   const [productId, setProductId] = useState("");
-  const [specs, setSpecs] = useState([{ key: "", value: "" }]);
+  const [specs, setSpecs] = useState([
+    { specKey: "", specValue: "" }
+  ]);
   const [previewSpecs, setPreviewSpecs] = useState([]);
 
   // 🔹 AUTO LOAD PRODUCT ID
@@ -21,7 +23,9 @@ export default function ProductSpecificationPanel() {
 
   const addToPreview = () => {
     const cleaned = specs.filter(
-      (s) => s.key.trim() !== "" && s.value.trim() !== ""
+      (s) =>
+        s.specKey.trim() !== "" &&
+        s.specValue.trim() !== ""
     );
 
     if (cleaned.length === 0) {
@@ -29,15 +33,17 @@ export default function ProductSpecificationPanel() {
       return;
     }
 
-    console.log("SPEC PREVIEW 👉", cleaned);
+    console.log("SPEC PREVIEW (DTO) 👉", cleaned);
 
     setPreviewSpecs((prev) => [...prev, ...cleaned]);
-    setSpecs([{ key: "", value: "" }]);
+    setSpecs([{ specKey: "", specValue: "" }]);
   };
 
   return (
     <>
-      <h2 className="text-xl font-semibold mb-4">Product Specifications</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        Product Specifications
+      </h2>
 
       {/* PRODUCT ID */}
       <input
@@ -48,16 +54,18 @@ export default function ProductSpecificationPanel() {
 
       {/* ADD SPECS */}
       <div className="bg-white p-4 rounded mb-4 w-[500px]">
-        <h3 className="font-semibold mb-2">Add Specifications (Preview)</h3>
+        <h3 className="font-semibold mb-2">
+          Add Specifications (Preview)
+        </h3>
 
         {specs.map((s, i) => (
           <div key={i} className="flex gap-2 mb-2">
             <input
               placeholder="Key (e.g. Weight)"
-              value={s.key}
+              value={s.specKey}
               onChange={(e) => {
                 const copy = [...specs];
-                copy[i].key = e.target.value;
+                copy[i].specKey = e.target.value;
                 setSpecs(copy);
               }}
               className="border p-2 w-1/2"
@@ -65,10 +73,10 @@ export default function ProductSpecificationPanel() {
 
             <input
               placeholder="Value (e.g. 200g)"
-              value={s.value}
+              value={s.specValue}
               onChange={(e) => {
                 const copy = [...specs];
-                copy[i].value = e.target.value;
+                copy[i].specValue = e.target.value;
                 setSpecs(copy);
               }}
               className="border p-2 w-1/2"
@@ -78,7 +86,9 @@ export default function ProductSpecificationPanel() {
 
         <div className="flex gap-3 mt-3">
           <button
-            onClick={() => setSpecs([...specs, { key: "", value: "" }])}
+            onClick={() =>
+              setSpecs([...specs, { specKey: "", specValue: "" }])
+            }
             className="border px-3 py-1 rounded"
           >
             + Add Spec
@@ -100,7 +110,9 @@ export default function ProductSpecificationPanel() {
       {/* PREVIEW TABLE */}
       {previewSpecs.length > 0 && (
         <div className="bg-white p-4 rounded w-[500px]">
-          <h3 className="font-semibold mb-2">Added Specifications</h3>
+          <h3 className="font-semibold mb-2">
+            Added Specifications
+          </h3>
 
           <table className="w-full border">
             <thead className="bg-gray-100">
@@ -113,8 +125,8 @@ export default function ProductSpecificationPanel() {
             <tbody>
               {previewSpecs.map((s, i) => (
                 <tr key={i}>
-                  <td className="border p-2">{s.key}</td>
-                  <td className="border p-2">{s.value}</td>
+                  <td className="border p-2">{s.specKey}</td>
+                  <td className="border p-2">{s.specValue}</td>
                 </tr>
               ))}
             </tbody>

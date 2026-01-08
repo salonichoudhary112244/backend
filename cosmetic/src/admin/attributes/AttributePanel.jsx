@@ -3,6 +3,7 @@ import { createAttribute, getAllAttributes } from "../../api/authApi";
 
 export default function AttributePanel() {
   const [name, setName] = useState("");
+  const [values, setValues] = useState([""]);
   const [attributes, setAttributes] = useState([]);
 
   useEffect(() => {
@@ -10,12 +11,8 @@ export default function AttributePanel() {
   }, []);
 
   const loadAttributes = async () => {
-    try {
-      const res = await getAllAttributes();
-      setAttributes(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await getAllAttributes();
+    setAttributes(res.data);
   };
 
   const addAttribute = async () => {
@@ -24,13 +21,21 @@ export default function AttributePanel() {
       return;
     }
 
-    try {
-      await createAttribute({ name });
-      setName("");
-      loadAttributes();
-    } catch (err) {
-      console.error("CREATE ATTRIBUTE ERROR", err);
+    const cleanedValues = values.filter(v => v.trim() !== "");
+
+    if (cleanedValues.length === 0) {
+      alert("At least one value required");
+      return;
     }
+
+    await createAttribute({
+      name,
+      values: cleanedValues
+    });
+
+    setName("");
+    setValues([""]);
+    loadAttributes();
   };
 
   return (
@@ -45,6 +50,29 @@ export default function AttributePanel() {
           className="border p-2 w-full"
         />
 
+        <h4 className="font-medium">Attribute Values</h4>
+
+        {values.map((v, i) => (
+          <input
+            key={i}
+            placeholder={`Value ${i + 1}`}
+            value={v}
+            onChange={(e) => {
+              const copy = [...values];
+              copy[i] = e.target.value;
+              setValues(copy);
+            }}
+            className="border p-2 w-full"
+          />
+        ))}
+
+        <button
+          onClick={() => setValues([...values, ""])}
+          className="border px-3 py-1 rounded"
+        >
+          + Add Value
+        </button>
+
         <button
           onClick={addAttribute}
           className="bg-pink-500 text-white px-4 py-2 rounded"
@@ -55,10 +83,7 @@ export default function AttributePanel() {
 
       <div className="grid grid-cols-3 gap-3">
         {attributes.map((a) => (
-          <div
-            key={a.id}
-            className="bg-white p-2 rounded border text-center"
-          >
+          <div key={a.id} className="bg-white p-2 rounded border text-center">
             {a.name}
           </div>
         ))}
