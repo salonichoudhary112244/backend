@@ -21,7 +21,7 @@ import {
   Paper
 } from "@mui/material";
 
-import { useProduct } from "../../services/ProductContext";
+import { useProduct } from "../../api/ProductContext";
 
 /* -------------------- Sortable Item -------------------- */
 function SortableImage({ id, image, index }) {

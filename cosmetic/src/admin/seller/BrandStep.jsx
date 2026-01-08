@@ -9,7 +9,7 @@ import {
   Button
 } from "@mui/material";
 import axios from "axios";
-import { useProduct } from "../../services/ProductContext";
+import { useProduct } from "../../api/ProductContext";
 
 export default function BrandStep({ onNext }) {
 

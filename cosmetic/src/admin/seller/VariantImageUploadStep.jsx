@@ -24,8 +24,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { useProduct } from "../../services/ProductContext";
-import axiosInstance from "../../utils/axiosInstance";
+import { useProduct } from "../../api/ProductContext";
+import axiosInstance from "../../api/axiosInstance";
 
 /* ---------------- Sortable Image Card ---------------- */
 function SortableImage({ image, onDelete, onSetPrimary }) {

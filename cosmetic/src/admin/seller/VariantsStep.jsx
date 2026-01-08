@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   MenuItem
 } from "@mui/material";
 
-import { useProduct } from "../../services/ProductContext";
+import { useProduct } from "../../api/ProductContext";
 
 export default function VariantStep({ onNext }) {
   const { productState, setProductState } = useProduct();

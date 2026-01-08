@@ -8,8 +8,8 @@ import {
   Button
 } from "@mui/material";
 
-import axiosInstance from "../../utils/axiosInstance";
-import { useProduct } from "../../services/ProductContext";
+import axiosInstance from "../../api/axiosInstance";
+import { useProduct } from "../../api/ProductContext";
 
 export default function AttributeSelectionStep({ onNext }) {
 

@@ -7,8 +7,8 @@ import {
   MenuItem,
   Divider
 } from "@mui/material";
-import { useProduct } from "../../services/ProductContext";
-import axiosInstance from "../../utils/axiosInstance";
+import { useProduct } from "../../api/ProductContext";
+import axiosInstance from "../../api/axiosInstance";
 
 export default function VariantPricingStep({ onNext }) {
   const { productState } = useProduct();

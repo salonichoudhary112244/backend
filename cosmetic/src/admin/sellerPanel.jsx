@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CreateProductLayout from "../pages/seller/CreateProductLayout";
-import { useProduct } from "../services/ProductContext";
+import CreateProductLayout from "../admin/seller/CreateProductLayout";
+import { useProduct } from "../api/ProductContext";
 import "../styles/SellerPanel.css";
 
 /* 🔐 STEP ACCESS CONTROL */

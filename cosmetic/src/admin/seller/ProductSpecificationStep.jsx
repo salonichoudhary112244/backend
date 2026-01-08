@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-import { useProduct } from "../../services/ProductContext";
+import { useProduct } from "../../api/ProductContext";
 
 export default function ProductSpecificationStep({ onNext }) {
   const { productState } = useProduct();

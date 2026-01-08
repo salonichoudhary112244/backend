@@ -1,0 +1,114 @@
+/* ===============================
+   SELLER PANEL ROOT
+================================ */
+.seller-panel {
+  display: flex;
+  height: 100vh;
+  background: #fff6f8;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+}
+
+/* ===============================
+   LEFT SIDEBAR (SCROLLABLE)
+================================ */
+.sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #f1d7dc;
+  padding: 20px 16px;
+  overflow-y: auto;              /* ✅ sidebar scroll */
+}
+
+/* scrollbar soft */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #e8a6b2;
+  border-radius: 10px;
+}
+
+/* Sidebar header */
+.sidebar-header h2 {
+  text-align: center;
+  color: #b76e79;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Menu */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #7a4a4f;
+  transition: all 0.3s ease;
+}
+
+/* Active */
+.sidebar-menu li.active {
+  background: #fde6eb;
+  color: #b76e79;
+  font-weight: 600;
+}
+
+/* Disabled */
+.sidebar-menu li.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Hover */
+.sidebar-menu li:not(.disabled):hover {
+  background: #fbeaec;
+}
+
+/* ===============================
+   MAIN CONTENT (NO SCROLL)
+================================ */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background: #fff6f8;
+  overflow: hidden;              /* ✅ no scroll */
+}
+
+/* Inner layout card feel */
+.main-content > div {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  height: 100%;
+  box-shadow: 0 20px 50px rgba(183,110,121,0.15);
+  overflow: hidden;
+}
+
+/* ===============================
+   OPTIONAL: STEP HEADER LOOK
+================================ */
+.main-content h2,
+.main-content h3 {
+  color: #b76e79;
+}
+
+/* ===============================
+   MOBILE SAFE
+================================ */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+}

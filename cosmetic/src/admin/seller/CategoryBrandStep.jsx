@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axiosInstance from "../../utils/axiosInstance";
-import { useProduct } from "../../services/ProductContext";
+import axiosInstance from "../../api/axiosInstance";
+import { useProduct } from "../../api/ProductContext";
 import { Box, Button } from "@mui/material";
 
 export default function CategoryBrandStep({ onNext }) {
