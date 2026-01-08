@@ -1,20 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { setVariantPrice } from "../../api/authApi";
-import AdminLayout from "../layout/AdminLayout";
 import FlowNav from "../layout/FlowNav";
-<FlowNav
-  skipPath="/admin/images"
-  nextPath="/admin/images"
-/>
 
 export default function VariantPricingPanel() {
 
   const [variantId, setVariantId] = useState("");
   const [mrp, setMrp] = useState("");
   const [sellingPrice, setSellingPrice] = useState("");
-
   const [discountType, setDiscountType] = useState("PERCENTAGE");
   const [discountValue, setDiscountValue] = useState("");
+
+  // 🔹 AUTO LOAD VARIANT ID (BEST PRACTICE)
+  useEffect(() => {
+    const vid = localStorage.getItem("variantId");
+
+    if (!vid) {
+      alert("Please create variant first");
+      return;
+    }
+
+    setVariantId(vid);
+  }, []);
 
   // 🔥 REAL DISCOUNT CALCULATION
   let finalPrice = sellingPrice;
@@ -46,13 +52,13 @@ export default function VariantPricingPanel() {
   };
 
   return (
-    <AdminLayout>
+    <>
       <h2 className="text-xl font-semibold mb-4">Variant Pricing</h2>
 
       <input
-        placeholder="Variant ID"
-        onChange={(e) => setVariantId(e.target.value)}
-        className="border p-2 mb-3 block"
+        value={variantId}
+        readOnly
+        className="border p-2 mb-3 block bg-gray-100"
       />
 
       <input
@@ -94,10 +100,11 @@ export default function VariantPricingPanel() {
         Save Price
       </button>
 
-      <p className="text-sm text-gray-500 mt-3">
-        * Discounts are calculated for preview. Final price is saved.
-      </p>
-
-    </AdminLayout>
+      {/* 🔽 FLOW NAVIGATION (CORRECT PLACE) */}
+      <FlowNav
+        skipPath="/admin/images"
+        nextPath="/admin/images"
+      />
+    </>
   );
 }

@@ -1,12 +1,6 @@
-
 import { useState } from "react";
-import AdminLayout from "../layout/AdminLayout";
 import { createProduct } from "../../api/authApi";
 import FlowNav from "../layout/FlowNav";
-
-<FlowNav
-  nextPath="/admin/variants"
-/>
 
 export default function ProductPanel() {
 
@@ -47,14 +41,11 @@ export default function ProductPanel() {
   };
 
   return (
-    <AdminLayout>
-
-      {/* PAGE TITLE */}
+    <>
       <h2 className="text-2xl font-semibold mb-6">
         Product Panel
       </h2>
 
-      {/* FORM */}
       <div className="bg-white p-6 rounded shadow w-[500px] space-y-3">
 
         <input
@@ -67,7 +58,7 @@ export default function ProductPanel() {
 
         <input
           name="slug"
-          placeholder="Slug (unique)"
+          placeholder="Slug"
           value={form.slug}
           onChange={handleChange}
           className="border p-2 w-full"
@@ -91,7 +82,7 @@ export default function ProductPanel() {
 
         <textarea
           name="description"
-          placeholder="Product Description"
+          placeholder="Description"
           value={form.description}
           onChange={handleChange}
           className="border p-2 w-full"
@@ -106,6 +97,8 @@ export default function ProductPanel() {
 
       </div>
 
-    </AdminLayout>
+      {/* FLOW NAV */}
+      <FlowNav nextPath="/admin/variants" />
+    </>
   );
 }

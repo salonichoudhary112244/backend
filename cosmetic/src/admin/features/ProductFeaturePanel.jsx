@@ -1,10 +1,5 @@
-import { useState } from "react";
-import AdminLayout from "../layout/AdminLayout";
+import { useState, useEffect } from "react";
 import FlowNav from "../layout/FlowNav";
-<FlowNav
-  skipPath="/admin/specifications"
-  nextPath="/admin/specifications"
-/>
 
 export default function ProductFeaturePanel() {
 
@@ -12,11 +7,23 @@ export default function ProductFeaturePanel() {
   const [features, setFeatures] = useState([""]);
   const [previewFeatures, setPreviewFeatures] = useState([]);
 
+  // 🔹 AUTO LOAD PRODUCT ID
+  useEffect(() => {
+    const pid = localStorage.getItem("productId");
+
+    if (!pid) {
+      alert("Please create product first");
+      return;
+    }
+
+    setProductId(pid);
+  }, []);
+
   const addToPreview = () => {
     const cleaned = features.filter(f => f.trim() !== "");
 
-    if (!productId || cleaned.length === 0) {
-      alert("Product ID and feature required");
+    if (cleaned.length === 0) {
+      alert("Enter at least one feature");
       return;
     }
 
@@ -27,13 +34,14 @@ export default function ProductFeaturePanel() {
   };
 
   return (
-    <AdminLayout>
+    <>
       <h2 className="text-xl font-semibold mb-4">Product Features</h2>
 
+      {/* PRODUCT ID */}
       <input
-        placeholder="Product ID"
-        onChange={(e) => setProductId(e.target.value)}
-        className="border p-2 mb-4 w-[300px]"
+        value={productId}
+        readOnly
+        className="border p-2 mb-4 w-[300px] bg-gray-100"
       />
 
       {/* ADD FEATURES */}
@@ -88,6 +96,11 @@ export default function ProductFeaturePanel() {
         </div>
       )}
 
-    </AdminLayout>
+      {/* 🔽 FLOW NAVIGATION */}
+      <FlowNav
+        skipPath="/admin/specifications"
+        nextPath="/admin/specifications"
+      />
+    </>
   );
 }

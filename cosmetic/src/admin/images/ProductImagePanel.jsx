@@ -1,11 +1,6 @@
 import { uploadProductImages } from "../../api/authApi";
-import AdminLayout from "../layout/AdminLayout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FlowNav from "../layout/FlowNav";
-<FlowNav
-  skipPath="/admin/features"
-  nextPath="/admin/features"
-/>
 
 export default function ProductImagePanel() {
 
@@ -13,9 +8,21 @@ export default function ProductImagePanel() {
   const [files, setFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
 
+  // 🔹 AUTO LOAD PRODUCT ID
+  useEffect(() => {
+    const pid = localStorage.getItem("productId");
+
+    if (!pid) {
+      alert("Please create product first");
+      return;
+    }
+
+    setProductId(pid);
+  }, []);
+
   const upload = async () => {
-    if (!productId || files.length === 0) {
-      alert("Product ID and images required");
+    if (files.length === 0) {
+      alert("Please select images");
       return;
     }
 
@@ -28,11 +35,7 @@ export default function ProductImagePanel() {
       console.log("UPLOAD IMAGES RESPONSE 👉", res.data);
       alert("Images uploaded successfully");
 
-      /**
-       * 🔥 IMPORTANT
-       * Agar backend sirf string return karta hai
-       * to hum local preview dikha rahe hain
-       */
+      // 🔥 Local preview
       const previews = files.map((file) => ({
         url: URL.createObjectURL(file),
         name: file.name
@@ -48,15 +51,16 @@ export default function ProductImagePanel() {
   };
 
   return (
-    <AdminLayout>
+    <>
       <h2 className="text-xl font-semibold mb-4">Product Images</h2>
 
       {/* INPUTS */}
       <div className="bg-white p-4 rounded mb-4 w-[400px] space-y-3">
+
         <input
-          placeholder="Product ID"
-          onChange={(e) => setProductId(e.target.value)}
-          className="border p-2 w-full"
+          value={productId}
+          readOnly
+          className="border p-2 w-full bg-gray-100"
         />
 
         <input
@@ -96,6 +100,11 @@ export default function ProductImagePanel() {
         </>
       )}
 
-    </AdminLayout>
+      {/* 🔽 FLOW NAVIGATION (CORRECT PLACE) */}
+      <FlowNav
+        skipPath="/admin/features"
+        nextPath="/admin/features"
+      />
+    </>
   );
 }

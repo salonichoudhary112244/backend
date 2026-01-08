@@ -1,10 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { saveManufacturerInfo } from "../../api/authApi";
-import AdminLayout from "../layout/AdminLayout";
 import FlowNav from "../layout/FlowNav";
-<FlowNav
-  nextPath="/admin/products/list"
-/>
 
 export default function ProductManufacturerPanel() {
 
@@ -12,9 +8,21 @@ export default function ProductManufacturerPanel() {
   const [content, setContent] = useState("");
   const [savedContent, setSavedContent] = useState("");
 
+  // 🔹 AUTO LOAD PRODUCT ID
+  useEffect(() => {
+    const pid = localStorage.getItem("productId");
+
+    if (!pid) {
+      alert("Please create product first");
+      return;
+    }
+
+    setProductId(pid);
+  }, []);
+
   const save = async () => {
-    if (!productId || !content.trim()) {
-      alert("Product ID and content required");
+    if (!content.trim()) {
+      alert("Manufacturer content required");
       return;
     }
 
@@ -35,14 +43,14 @@ export default function ProductManufacturerPanel() {
   };
 
   return (
-    <AdminLayout>
+    <>
       <h2 className="text-xl font-semibold mb-4">From the Manufacturer</h2>
 
       {/* PRODUCT ID */}
       <input
-        placeholder="Product ID"
-        onChange={(e) => setProductId(e.target.value)}
-        className="border p-2 mb-3 w-[300px]"
+        value={productId}
+        readOnly
+        className="border p-2 mb-3 w-[300px] bg-gray-100"
       />
 
       {/* TEXT AREA */}
@@ -75,6 +83,10 @@ export default function ProductManufacturerPanel() {
         </div>
       )}
 
-    </AdminLayout>
+      {/* 🔽 FLOW NAVIGATION */}
+      <FlowNav
+        nextPath="/admin/success"
+      />
+    </>
   );
 }

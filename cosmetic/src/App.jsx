@@ -27,6 +27,7 @@ import ProductPanel from "./admin/products/ProductPanel";
 import Dashboard from "./admin/Dashboard";
 import ProductList from "./admin/products/ProductListing";
 import AdminLayout from "./admin/layout/AdminLayout";
+import Success from "./admin/Success";
 
 
 
@@ -55,6 +56,9 @@ export default function App() {
         <Route path="features" element={<ProductFeaturePanel />} />
         <Route path="specifications" element={<ProductSpecificationPanel />} />
         <Route path="manufacturer" element={<ProductManufacturerPanel />} />
+        <Route path="success" element={<Success />} />
+
+
         <Route path="products/list" element={<ProductList />} />
       </Route>
     </Routes>

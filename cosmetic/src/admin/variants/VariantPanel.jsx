@@ -1,19 +1,9 @@
 import { useState } from "react";
 import { createVariant, getVariants } from "../../api/authApi";
-import AdminLayout from "../layout/AdminLayout";
-import { useNavigate } from "react-router-dom";
 import FlowNav from "../layout/FlowNav";
-  <FlowNav
-  skipPath="/admin/pricing"
-  nextPath="/admin/pricing"
-/>
 
 export default function VariantPanel() {
 
-  const navigate = useNavigate();
-
-
-  // states
   const [productId, setProductId] = useState("");
   const [variants, setVariants] = useState([]);
 
@@ -60,17 +50,10 @@ export default function VariantPanel() {
 
       const res = await createVariant(productId, payload);
 
-      // 🔥 CONSOLE
-      console.log("ADD VARIANT FULL RESPONSE 👉", res);
-      console.log("ADD VARIANT RESPONSE DATA 👉", res.data);
+      console.log("ADD VARIANT 👉", res.data);
+      alert("Variant created");
 
-      // 🔔 POPUP
-      alert(res.data); // "Variant created"
-
-      // reset
       setVariant({ sku: "", price: "", stock: "" });
-
-      // reload list
       loadVariants();
 
     } catch (err) {
@@ -80,14 +63,11 @@ export default function VariantPanel() {
   };
 
   return (
-    <AdminLayout>
-
+    <>
       <h2 className="text-xl font-semibold mb-4">Variants</h2>
 
       {/* PRODUCT ID */}
       <div className="bg-white p-4 mb-6 border rounded w-[400px]">
-        <h3 className="font-semibold mb-2">Select Product</h3>
-
         <input
           placeholder="Product ID"
           value={productId}
@@ -104,41 +84,37 @@ export default function VariantPanel() {
       </div>
 
       {/* ADD VARIANT */}
-      <div className="bg-white p-4 mb-6 border rounded w-[500px]">
-        <h3 className="font-semibold mb-3">Add Variant</h3>
+      <div className="bg-white p-4 mb-6 border rounded w-[500px] space-y-3">
+        <input
+          name="sku"
+          placeholder="SKU"
+          value={variant.sku}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
 
-        <div className="space-y-3">
-          <input
-            name="sku"
-            placeholder="SKU (unique)"
-            value={variant.sku}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
+        <input
+          name="price"
+          placeholder="Price"
+          value={variant.price}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
 
-          <input
-            name="price"
-            placeholder="Price"
-            value={variant.price}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
+        <input
+          name="stock"
+          placeholder="Stock"
+          value={variant.stock}
+          onChange={handleChange}
+          className="border p-2 w-full"
+        />
 
-          <input
-            name="stock"
-            placeholder="Stock"
-            value={variant.stock}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-
-          <button
-            onClick={addVariant}
-            className="bg-pink-500 text-white px-6 py-2 rounded"
-          >
-            Save Variant
-          </button>
-        </div>
+        <button
+          onClick={addVariant}
+          className="bg-pink-500 text-white px-6 py-2 rounded"
+        >
+          Save Variant
+        </button>
       </div>
 
       {/* VARIANT LIST */}
@@ -161,27 +137,14 @@ export default function VariantPanel() {
               <td>{v.stock}</td>
             </tr>
           ))}
-
-          {variants.length === 0 && (
-            <tr>
-              <td colSpan="4" className="p-4 text-center text-gray-500">
-                No variants found
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
 
-      {/* NEXT */}
-      <div className="flex justify-end mt-6">
-        <button
-          onClick={() => navigate("/admin/variant-pricing")}
-          className="bg-gray-300 px-6 py-2 rounded hover:bg-gray-400"
-        >
-          Skip & Continue →
-        </button>
-      </div>
-
-    </AdminLayout>
+      {/* FLOW NAV */}
+      <FlowNav
+        skipPath="/admin/pricing"
+        nextPath="/admin/pricing"
+      />
+    </>
   );
 }

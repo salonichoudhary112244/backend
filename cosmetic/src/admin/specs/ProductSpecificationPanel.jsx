@@ -1,10 +1,5 @@
-import { useState } from "react";
-import AdminLayout from "../layout/AdminLayout";
+import { useState, useEffect } from "react";
 import FlowNav from "../layout/FlowNav";
-<FlowNav
-  skipPath="/admin/manufacturer"
-  nextPath="/admin/manufacturer"
-/>
 
 export default function ProductSpecificationPanel() {
 
@@ -12,13 +7,25 @@ export default function ProductSpecificationPanel() {
   const [specs, setSpecs] = useState([{ key: "", value: "" }]);
   const [previewSpecs, setPreviewSpecs] = useState([]);
 
+  // 🔹 AUTO LOAD PRODUCT ID
+  useEffect(() => {
+    const pid = localStorage.getItem("productId");
+
+    if (!pid) {
+      alert("Please create product first");
+      return;
+    }
+
+    setProductId(pid);
+  }, []);
+
   const addToPreview = () => {
     const cleaned = specs.filter(
       (s) => s.key.trim() !== "" && s.value.trim() !== ""
     );
 
-    if (!productId || cleaned.length === 0) {
-      alert("Product ID and at least one specification required");
+    if (cleaned.length === 0) {
+      alert("Enter at least one specification");
       return;
     }
 
@@ -29,14 +36,14 @@ export default function ProductSpecificationPanel() {
   };
 
   return (
-    <AdminLayout>
+    <>
       <h2 className="text-xl font-semibold mb-4">Product Specifications</h2>
 
       {/* PRODUCT ID */}
       <input
-        placeholder="Product ID"
-        onChange={(e) => setProductId(e.target.value)}
-        className="border p-2 mb-4 w-[300px]"
+        value={productId}
+        readOnly
+        className="border p-2 mb-4 w-[300px] bg-gray-100"
       />
 
       {/* ADD SPECS */}
@@ -115,6 +122,11 @@ export default function ProductSpecificationPanel() {
         </div>
       )}
 
-    </AdminLayout>
+      {/* 🔽 FLOW NAVIGATION */}
+      <FlowNav
+        skipPath="/admin/manufacturer"
+        nextPath="/admin/manufacturer"
+      />
+    </>
   );
 }
