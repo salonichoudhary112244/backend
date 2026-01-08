@@ -139,8 +139,16 @@ export const assignAttributesToProduct = (productId, data) =>
 // ================= VARIANT APIs =================
 
 // create variant
+
 export const createVariant = (productId, data) =>
   API.post(`/products/${productId}/variants`, data);
+
+// export const createVariant = (productId, payload) => {
+//   return API.post(
+//     `/products/${productId}/variants`,
+//     payload
+//   );
+// };
 
 // get variants by product
 export const getVariants = (productId) =>

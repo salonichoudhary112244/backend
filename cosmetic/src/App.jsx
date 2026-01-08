@@ -12,8 +12,8 @@ import Products from "./components/Products";
 import BrandPanel from "./admin/brands/BrandPanel";
 import CategoryPanel from "./admin/categories/CategoryPanel";
 import AttributePanel from "./admin/attributes/AttributePanel";
-
 import ProductAttributeMapping from "./admin/productAttributes/ProductAttributeMapping";
+
 import VariantPanel from "./admin/variants/VariantPanel";
 /* ========= ADMIN MODULES ========= */
 import VariantPricingPanel from "./admin/Pricing/VariantPricingPanel";
@@ -24,7 +24,7 @@ import ProductManufacturerPanel from "./admin/manufacturer/ProductManufacturerPa
 // import CreateProduct from "./admin/products/CreateProduct";
 import ProductPanel from "./admin/products/ProductPanel";
 import Dashboard from "./admin/Dashboard";
-import ProductList from "./admin/products/ProductListing";
+// import ProductList from "./admin/products/ProductListing";
 import AdminLayout from "./admin/layout/AdminLayout";
 import Success from "./admin/Success";
 
@@ -61,7 +61,8 @@ export default function App() {
   <Route path="manufacturer" element={<ProductManufacturerPanel />} />
   <Route path="success" element={<Success />} />
   <Route path="product-attributes" element={<ProductAttributeMapping />} />
-
+  <Route path="attribute-mapping" element={<ProductAttributeMapping />}
+  />
 </Route>
 
     </Routes>

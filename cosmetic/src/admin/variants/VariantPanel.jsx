@@ -42,43 +42,39 @@ export default function VariantPanel() {
     }
   };
 
-  const addVariant = async () => {
-    if (!productId || !variant.sku) {
-      alert("Product ID and SKU required");
-      return;
-    }
+const addVariant = async () => {
+  if (!productId || !variant.sku) {
+    alert("Product ID and SKU required");
+    return;
+  }
 
-    // ✅ DTO MATCH PAYLOAD
+  try {
     const payload = {
       sku: variant.sku,
       price: Number(variant.price),
-      stock: Number(variant.stock),
-      attributes: variant.attributes // 👈 EMPTY MAP FOR NOW
+      stock: Number(variant.stock)
     };
 
-    try {
-      const res = await createVariant(productId, payload);
+const res = await createVariant(productId, payload);
 
-      console.log("ADD VARIANT RESPONSE 👉", res.data);
-      alert("Variant created");
+// 🔥 BACKEND RESPONSE
+// res.data.id  <-- यही variantId है
 
-      // 🔥 Save variantId for next steps
-      localStorage.setItem("variantId", res.data.id);
+localStorage.setItem("variantId", res.data.id);   // ✅ IMPORTANT
 
-      setVariant({
-        sku: "",
-        price: "",
-        stock: "",
-        attributes: {}
-      });
+console.log("VARIANT CREATED 👉", res.data);
+alert("Variant created successfully");
 
-      loadVariants();
+setVariant({ sku: "", price: "", stock: "" });
+loadVariants();
 
-    } catch (err) {
-      console.error("ADD VARIANT ERROR 👉", err);
-      alert("Error creating variant");
-    }
-  };
+
+  } catch (err) {
+    console.error("ADD VARIANT ERROR 👉", err);
+    alert("Error creating variant");
+  }
+};
+
 
   return (
     <>
