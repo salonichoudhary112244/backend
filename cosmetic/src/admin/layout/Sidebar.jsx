@@ -29,6 +29,10 @@ export default function Sidebar() {
           Manufacturer
         </NavLink>
 
+<NavLink to="/admin/brands">Brands</NavLink>
+<NavLink to="/admin/categories">Categories</NavLink>
+<NavLink to="/admin/attributes">Attributes</NavLink>
+
       </nav>
     </div>
   );

@@ -9,9 +9,8 @@ import ResetPassword from "./components/ResetPassword";
 import Products from "./components/Products";
 
 
-import CreateProduct from "./admin/products/CreateProduct";
-import BrandList from "./admin/brands/BrandList";
-import CategoryList from "./admin/categories/CategoryList";
+import BrandPanel from "./admin/brands/BrandPanel";
+import CategoryPanel from "./admin/categories/CategoryPanel";
 import AttributePanel from "./admin/attributes/AttributePanel";
 
 import ProductAttributeMapping from "./admin/productAttributes/ProductAttributeMapping";
@@ -43,24 +42,28 @@ export default function App() {
       <Route path="/products" element={<Products/>}/>
 
 
-      
-      {/* ADMIN ROUTES */}
- <Route path="/admin" element={<AdminLayout />}>
-   {/* 👇 DEFAULT PAGE */}
+<Route path="/admin" element={<AdminLayout />}>
   <Route index element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="products/create" element={<ProductPanel />} />
-        <Route path="variants" element={<VariantPanel />} />
-        <Route path="pricing" element={<VariantPricingPanel />} />
-        <Route path="images" element={<ProductImagePanel />} />
-        <Route path="features" element={<ProductFeaturePanel />} />
-        <Route path="specifications" element={<ProductSpecificationPanel />} />
-        <Route path="manufacturer" element={<ProductManufacturerPanel />} />
-        <Route path="success" element={<Success />} />
+  <Route path="dashboard" element={<Dashboard />} />
 
+  {/* MASTER DATA */}
+  <Route path="brands" element={<BrandPanel />} />
+  <Route path="categories" element={<CategoryPanel />} />
+  <Route path="attributes" element={<AttributePanel />} />
 
-        <Route path="products/list" element={<ProductList />} />
-      </Route>
+  {/* PRODUCT FLOW */}
+  <Route path="products/create" element={<ProductPanel />} />
+  <Route path="variants" element={<VariantPanel />} />
+  <Route path="pricing" element={<VariantPricingPanel />} />
+  <Route path="images" element={<ProductImagePanel />} />
+  <Route path="features" element={<ProductFeaturePanel />} />
+  <Route path="specifications" element={<ProductSpecificationPanel />} />
+  <Route path="manufacturer" element={<ProductManufacturerPanel />} />
+  <Route path="success" element={<Success />} />
+  <Route path="product-attributes" element={<ProductAttributeMapping />} />
+
+</Route>
+
     </Routes>
 
    
