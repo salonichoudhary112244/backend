@@ -66,3 +66,31 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+
+
+
+
+
+/* ===== SALONI ADMIN THEME ===== */
+
+body {
+  background-color: #fdf2f8; /* soft pink */
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* smooth scroll */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #f9a8d4 transparent;
+}
+
+/* scrollbar chrome */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #f9a8d4;
+  border-radius: 6px;
+}
