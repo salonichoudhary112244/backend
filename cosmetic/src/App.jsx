@@ -7,7 +7,10 @@ import VerifyOtp from "./components/VerifyOtp";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Products from "./components/Products";
+
+
 import SellerPanel from "./admin/sellerPanel";
+import { ProductProvider } from "./api/ProductContext";
 
 
 export default function App() {
@@ -21,7 +24,14 @@ export default function App() {
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/products" element={<Products/>}/>
 
-      <Route path="/seller-product-create" element={<SellerPanel/>} />
+     <Route
+  path="/seller-product-create"
+  element={
+    <ProductProvider>
+      <SellerPanel />
+    </ProductProvider>
+  }
+/>
 
     </Routes>
 

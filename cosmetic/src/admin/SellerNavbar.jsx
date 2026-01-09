@@ -14,7 +14,7 @@ export default function SellerNavbar() {
       </div>
 
       <div className="seller-profile">
-        Priya Sharma ⌄
+        Saloni Choudhary ⌄
       </div>
     </div>
   );

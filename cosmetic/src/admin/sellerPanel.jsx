@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CreateProductLayout from "../admin/seller/CreateProductLayout";
 import { useProduct } from "../api/ProductContext";
 import "../styles/SellerPanel.css";
+import SellerNavbar from "./SellerNavbar";   // ✅ ADD
 
 /* 🔐 STEP ACCESS CONTROL */
 const canAccessStep = (stepIndex, productState) => {
@@ -36,6 +37,10 @@ export default function SellerPanel() {
   ];
 
   return (
+     <div className="seller-wrapper"> {/* ✅ NEW WRAPPER */}
+
+      {/* 🔹 TOP NAVBAR */}
+      <SellerNavbar />
     <div className="seller-panel">
 
       {/* 🔹 LEFT SIDEBAR */}
@@ -66,7 +71,7 @@ export default function SellerPanel() {
                 }}
               >
                 {index}. {label}
-                {locked && <span style={{ marginLeft: 6 }}>🔒</span>}
+                {locked && <span style={{ marginLeft: 6 }}></span>}
               </li>
             );
           })}
@@ -81,5 +86,6 @@ export default function SellerPanel() {
         />
       </div>
     </div>
+        </div>
   );
 }
