@@ -35,8 +35,8 @@ export default function VariantStep({ onNext }) {
     if (!productId) return;
 
     axiosInstance
-      .get(`/auth/products/${productId}/attributes`)
-      .then(res => setAttributes(res.data))
+      .get(`/auth/products/${productId}/variants`)
+      .then(res => setVariants(res.data))
       .catch(() => alert("Failed to load attributes"));
   }, [productId]);
 
@@ -69,8 +69,7 @@ export default function VariantStep({ onNext }) {
         payload
       );
 
-      const savedVariant = res.data; // ✅ REAL VARIANT (with ID)
-
+        const savedVariant = res.data;
       // UI table
       setVariants(prev => [...prev, savedVariant]);
 

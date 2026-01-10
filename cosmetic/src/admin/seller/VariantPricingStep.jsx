@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useProduct } from "../../api/ProductContext";
 import axiosInstance from "../../api/axiosInstance";
+import "../../styles/SellerPanel.css"
 
 export default function VariantPricingStep({ onNext }) {
   const { productState } = useProduct();
@@ -88,14 +89,15 @@ export default function VariantPricingStep({ onNext }) {
   };
 
   return (
-    <Box>
-      <Typography variant="h5" gutterBottom>
+    <Box className="pricing-container">
+      <Typography variant="h5" className="pricing-title" gutterBottom>
         Variant Pricing & Discount
       </Typography>
 
       {/* ✅ VARIANT DROPDOWN NOW WORKS */}
       <TextField
         select
+        className="variant-select"
         label="Select Variant"
         value={variantId}
         onChange={e => setVariantId(e.target.value)}
@@ -111,9 +113,9 @@ export default function VariantPricingStep({ onNext }) {
 
       {variantId && (
         <>
-          <Typography fontWeight="bold">Base Pricing</Typography>
+          <Typography className="pricing-section-title" fontWeight="bold">Base Pricing</Typography>
 
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+          <Box className="pricing-row" sx={{ display: "flex", gap: 2, mt: 2 }}>
             <TextField
               label="MRP"
               value={priceForm.mrp}
@@ -135,15 +137,15 @@ export default function VariantPricingStep({ onNext }) {
             />
           </Box>
 
-          <Button sx={{ mt: 2 }} variant="contained" onClick={savePrice}>
+          <Button className="pricing-btn" sx={{ mt: 2 }} variant="contained" onClick={savePrice}>
             Save Price
           </Button>
 
-          <Divider sx={{ my: 4 }} />
+          <Divider className="pricing-divider" sx={{ my: 4 }} />
 
-          <Typography fontWeight="bold">Discount</Typography>
+          <Typography className="pricing-section-title" fontWeight="bold">Discount</Typography>
 
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+          <Box  className="pricing-row" sx={{ display: "flex", gap: 2, mt: 2 }}>
             <TextField
               select
               label="Discount Type"
@@ -173,18 +175,19 @@ export default function VariantPricingStep({ onNext }) {
             />
           </Box>
 
-          <Button sx={{ mt: 2 }} variant="contained" onClick={saveDiscount}>
+          <Button className="pricing-btn discount-btn" sx={{ mt: 2 }} variant="contained" onClick={saveDiscount}>
             Apply Discount
           </Button>
 
           {pricingPreview && (
-            <Box sx={{ mt: 4 }}>
+            <Box className="pricing-preview" sx={{ mt: 4 }}>
               <Typography variant="h6">Pricing Preview</Typography>
-              <Typography>Final Price: ₹{pricingPreview.finalPrice}</Typography>
-            </Box>
+ <Typography>
+        Final Price: <span>₹{pricingPreview.finalPrice}</span>
+      </Typography>            </Box>
           )}
 
-          <Box sx={{ mt: 4 }}>
+          <Box className="pricing-footer" sx={{ mt: 4 }}>
             <Button variant="outlined" onClick={onNext}>
               Continue
             </Button>

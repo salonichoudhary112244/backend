@@ -1,32 +1,44 @@
+import { useEffect, useState } from "react";
+import axiosInstance from "../api/axiosInstance";
+import ProductCard from "../components/ProductCard";
 import "../styles/products.css";
-import ProductCard from "./ProductCard";
 
-export default function Products() {
+export default function ProductListPage() {
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const res = await axiosInstance.get("/auth/products");
+      setProducts(res.data);
+    } catch (err) {
+      alert("Failed to load products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="loading">Loading products...</div>;
+  }
+
   return (
-    <section className="products-section">
-      <h2 className="products-title">All Products</h2>
+    <div className="product-list-page">
+      <h2 className="page-title">All Products</h2>
 
-      <div className="products-grid">
-        <ProductCard
-          name="Glow Serum"
-          image="https://res.cloudinary.com/dbbqumrry/image/upload/v1767532001/glow_serum.png"
-        />
-
-        <ProductCard
-          name="Rose Cream"
-          image="https://res.cloudinary.com/dbbqumrry/image/upload/v1767532001/rose_cream.png"
-        />
-
-        <ProductCard
-          name="Luxury Lipstick"
-          image="https://res.cloudinary.com/dbbqumrry/image/upload/v1767532001/lipstick.png"
-        />
-
-        <ProductCard
-          name="Hair Care"
-          image="https://res.cloudinary.com/dbbqumrry/image/upload/v1767532001/hair_care.png"
-        />
+      <div className="product-grid">
+        {products.map(product => (
+          <ProductCard
+            key={product.productId}
+            product={product}
+          />
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

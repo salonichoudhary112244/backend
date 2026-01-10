@@ -70,15 +70,18 @@ export default function ImageUploadStep({ onNext }) {
   const productId = productState.productId;
 
   const [images, setImages] = useState([]);
+  //add this line
+    const [primaryIndex, setPrimaryIndex] = useState(0);
 
   /* -------- Select Images -------- */
   const handleFiles = (e) => {
     const files = Array.from(e.target.files);
 
-    const mapped = files.map((file) => ({
+    const mapped = files.map((file,index) => ({
       id: crypto.randomUUID(),
       file,
-      preview: URL.createObjectURL(file)
+      preview: URL.createObjectURL(file),
+         isPrimary: images.length === 0 && index === 0
     }));
 
     setImages((prev) => [...prev, ...mapped]);
@@ -92,8 +95,17 @@ export default function ImageUploadStep({ onNext }) {
     setImages((items) => {
       const oldIndex = items.findIndex(i => i.id === active.id);
       const newIndex = items.findIndex(i => i.id === over.id);
+
+       // update primary index also
+      if (oldIndex === primaryIndex) setPrimaryIndex(newIndex);
+
       return arrayMove(items, oldIndex, newIndex);
     });
+  };
+
+    /* -------- Set Primary -------- */
+  const setPrimary = (index) => {
+    setPrimaryIndex(index);
   };
 
   /* -------- Upload Images -------- */
@@ -104,9 +116,12 @@ export default function ImageUploadStep({ onNext }) {
     }
 
     const formData = new FormData();
-    images.forEach(img => {
+    images.forEach((img,index) => {
       formData.append("files", img.file);
+        formData.append("orders", index);
     });
+
+        formData.append("primaryIndex", primaryIndex);
 
     await fetch(
       `http://localhost:8080/auth/products/${productId}/images`,
