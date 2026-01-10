@@ -8,18 +8,16 @@ export default function ProductCard({ product }) {
   //   product.images?.find(img => img.isPrimary)?.imageUrl ||
   //   product.images?.[0]?.imageUrl;
 
+    const imageSrc = product.imageUrl
+    ? `http://localhost:8080/${product.imageUrl}`
+    : "/no-image.png";
   return (
     <div
       className="product-card"
       onClick={() => navigate(`/products/${product.productId}`)}
     >
       <img
-         src={product.image || "/no-image.png"}
-        // src={
-        //   imageUrl
-        //     ? `http://localhost:8080/${imageUrl}`
-        //     : "/no-image.png"
-        // }
+         src={product.imageUrl || "/no-image.png"}
         alt={product.name}
         className="product-image"
       />
