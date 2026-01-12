@@ -8,16 +8,28 @@ export default function ProductCard({ product }) {
   //   product.images?.find(img => img.isPrimary)?.imageUrl ||
   //   product.images?.[0]?.imageUrl;
 
-    const imageSrc = product.imageUrl
-    ? `http://localhost:8080/${product.imageUrl}`
+  //pehle
+  const imageSrc = product.imageUrl
+    ? product.imageUrl   // Cloudinary URL already full
     : "/no-image.png";
+
+//baad me
+  <img
+  src={
+    product.imageUrl
+      ? `http://localhost:8080/${product.imageUrl}`
+      : "/no-image.png"
+  }
+  alt={product.name}
+/>
+
   return (
     <div
       className="product-card"
       onClick={() => navigate(`/products/${product.productId}`)}
     >
       <img
-         src={product.imageUrl || "/no-image.png"}
+         src={imageSrc }
         alt={product.name}
         className="product-image"
       />

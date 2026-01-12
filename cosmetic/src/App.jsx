@@ -7,7 +7,7 @@ import VerifyOtp from "./components/VerifyOtp";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Products from "./components/Products";
-
+// import ProductDetailPage from "./components/ProductDetailPage";
 
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
@@ -31,7 +31,12 @@ export default function App() {
       <SellerPanel />
     </ProductProvider>
   }
-/>
+  />
+  {/* <Route 
+  path="/products/:productId" 
+  element={<ProductDetailPage />}
+  /> */}
+
 
     </Routes>
 
