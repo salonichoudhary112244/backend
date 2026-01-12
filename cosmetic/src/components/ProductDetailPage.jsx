@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstance";
+import axiosInstance from "../api/axiosInstance";
 
 import ProductBreadcrumb from "../components/product/ProductBreadcrumb";
 import ProductHeader from "../components/product/ProductHeader";
@@ -28,7 +28,7 @@ export default function ProductDetailPage() {
 
   const loadProduct = async () => {
     try {
-      const res = await axiosInstance.get(`/api/products/${id}/page`);
+      const res = await axiosInstance.get(`/auth/products/${id}/page`);
       setProduct(res.data);
       setSelectedVariant(res.data.variants?.[0] || null);
     } catch (err) {

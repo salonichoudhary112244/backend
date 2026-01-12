@@ -33,11 +33,13 @@ export default function Products() {
       <h2>All Products</h2>
 
       <div className="product-grid">
-        {products.map(product => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
+{products
+          .filter(p => p && p.productId)   // 🛡️ safety
+          .map(product => (
+            <ProductCard
+              key={product.productId}   // 🔥 FIX HERE
+              product={product}
+            />
         ))}
       </div>
     </div>

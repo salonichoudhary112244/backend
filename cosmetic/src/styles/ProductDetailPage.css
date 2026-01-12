@@ -1,220 +1,207 @@
-/* ===============================
-   PRODUCT DETAIL PAGE (PDP)
-================================ */
-
-.pdp-container {
+/* ========== PAGE WRAPPER ========== */
+.product-page {
   max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: "Inter", sans-serif;
-  color: #222;
+  margin: auto;
+  padding: 16px 24px 60px;
+  background: #fff;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-/* ===============================
-   TOP SECTION
-================================ */
+/* ========== BREADCRUMB ========== */
+.product-breadcrumb {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 14px;
+}
 
-.pdp-top {
+.product-breadcrumb a {
+  color: #7a2b5f; /* Choudhrani theme */
+  text-decoration: none;
+}
+
+.product-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.product-breadcrumb .current {
+  color: #111;
+  font-weight: 500;
+}
+
+/* ========== MAIN LAYOUT ========== */
+.product-layout {
   display: grid;
-  grid-template-columns: 80px 420px 1fr;
-  gap: 30px;
+  grid-template-columns: 460px 1fr;
+  gap: 48px;
   align-items: flex-start;
 }
 
-/* ===============================
-   THUMBNAILS
-================================ */
+/* ========== LEFT – IMAGE GALLERY ========== */
+.product-left {
+  position: sticky;
+  top: 80px;
+}
 
-.pdp-thumbs {
+/* Gallery */
+.image-gallery {
   display: flex;
-  flex-direction: column;
   gap: 12px;
 }
 
-.pdp-thumbs img {
-  width: 70px;
-  height: 70px;
+.image-gallery .thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-gallery .thumbs img {
+  width: 64px;
+  height: 80px;
   object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: border 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.pdp-thumbs img:hover {
-  border: 2px solid #ff9900;
+.image-gallery .thumbs img.active {
+  border-color: #7a2b5f;
 }
 
-/* ===============================
-   MAIN IMAGE
-================================ */
-
-.pdp-main-image {
-  border: 1px solid #e2e2e2;
-  border-radius: 16px;
-  padding: 20px;
-  background: #fff;
+.image-gallery .main-image img {
+  width: 360px;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #eee;
 }
 
-.pdp-main-image img {
-  width: 100%;
-  height: 420px;
-  object-fit: contain;
+/* ========== RIGHT – CONTENT ========== */
+.product-right {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-/* ===============================
-   RIGHT INFO
-================================ */
-
-.pdp-info h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.pdp-info .brand {
-  color: #007185;
-  font-size: 14px;
-  margin-bottom: 12px;
-}
-
-.pdp-info h2 {
+/* ========== HEADER ========== */
+.product-header h1 {
   font-size: 26px;
-  color: #b12704;
-  margin: 16px 0;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
 }
 
-/* ===============================
-   VARIANTS
-================================ */
+.product-brand {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 6px;
+}
 
-.pdp-info button {
+.product-rating {
+  font-size: 14px;
+  color: #f3a847;
+}
+
+/* ========== PRICING ========== */
+.product-pricing {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.product-pricing .price {
+  font-size: 26px;
+  font-weight: 600;
+  color: #b12704;
+}
+
+.product-pricing .stock {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #007600;
+}
+
+/* ========== VARIANTS ========== */
+.product-variants {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-variants button {
   padding: 8px 14px;
-  margin: 6px 6px 6px 0;
-  border-radius: 8px;
-  border: 1px solid #d5d9d9;
+  border-radius: 4px;
+  border: 1px solid #ccc;
   background: #fff;
   cursor: pointer;
   font-size: 14px;
 }
 
-.pdp-info button:hover {
-  border-color: #ff9900;
+.product-variants button.active {
+  border-color: #7a2b5f;
+  background: #f9f1f6;
 }
 
-/* ===============================
-   CTA BUTTONS
-================================ */
-
-.add-cart {
-  display: block;
-  width: 220px;
-  background: #ffd814;
-  border: none;
-  border-radius: 30px;
-  padding: 12px;
-  font-size: 15px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-.add-cart:hover {
-  background: #f7ca00;
-}
-
-.buy-now {
-  display: block;
-  width: 220px;
-  background: #ffa41c;
-  border: none;
-  border-radius: 30px;
-  padding: 12px;
-  font-size: 15px;
+/* ========== BUY BOX ========== */
+.product-buy-box {
   margin-top: 10px;
+  display: flex;
+  gap: 14px;
+}
+
+.product-buy-box button {
+  flex: 1;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
   cursor: pointer;
 }
 
-.buy-now:hover {
-  background: #fa8900;
+.product-buy-box .add-to-cart {
+  background: #ffd814;
+  color: #111;
 }
 
-/* ===============================
-   SECTIONS
-================================ */
+.product-buy-box .buy-now {
+  background: #7a2b5f;
+  color: #fff;
+}
 
-section {
+/* ========== TABS ========== */
+.product-tabs {
   margin-top: 40px;
+  border-top: 1px solid #eee;
   padding-top: 20px;
-  border-top: 1px solid #e2e2e2;
 }
 
-section h3 {
-  font-size: 20px;
-  margin-bottom: 16px;
+.product-tabs h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
-/* ===============================
-   FEATURES
-================================ */
-
-section ul {
-  padding-left: 20px;
-}
-
-section ul li {
-  margin-bottom: 8px;
+.product-tabs p {
   font-size: 14px;
-}
-
-/* ===============================
-   SPECIFICATIONS
-================================ */
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-table tr {
-  border-bottom: 1px solid #e2e2e2;
-}
-
-table td {
-  padding: 10px;
-}
-
-table td:first-child {
-  font-weight: 500;
-  width: 30%;
-  background: #f7f7f7;
-}
-
-/* ===============================
-   MANUFACTURER
-================================ */
-
-section p {
-  font-size: 14px;
+  color: #444;
   line-height: 1.6;
-  color: #333;
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 992px) {
-  .pdp-top {
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .product-layout {
     grid-template-columns: 1fr;
   }
 
-  .pdp-thumbs {
-    flex-direction: row;
-    order: 2;
+  .product-left {
+    position: static;
   }
 
-  .pdp-main-image {
-    order: 1;
+  .image-gallery {
+    flex-direction: column;
+  }
+
+  .image-gallery .main-image img {
+    width: 100%;
+    height: auto;
   }
 }

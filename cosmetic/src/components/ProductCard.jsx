@@ -14,14 +14,14 @@ export default function ProductCard({ product }) {
     : "/no-image.png";
 
 //baad me
-  <img
-  src={
-    product.imageUrl
-      ? `http://localhost:8080/${product.imageUrl}`
-      : "/no-image.png"
-  }
-  alt={product.name}
-/>
+//   <img
+//   src={
+//     product.imageUrl
+//       ? `http://localhost:8080/${product.imageUrl}`
+//       : "/no-image.png"
+//   }
+//   alt={product.name}
+// />
 
   return (
     <div
