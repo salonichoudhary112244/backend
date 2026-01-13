@@ -3,18 +3,34 @@ import "../styles/auth.css";
 
 import { useEffect } from "react";
 import { googleLogin } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
 
 export default function GoogleLoginButton(){
+    const navigate = useNavigate();
   const handleGoogleResponse = async (response) => {
     try {
       const idToken = response.credential;
       const res = await googleLogin(idToken);
+
       localStorage.setItem("token", res.data);
+//add
+       localStorage.setItem(
+      "user",
+      JSON.stringify({
+        name: res.data.name,
+        email: res.data.email
+      })
+    );
+      navigate("/products");
       setPopup({ msg: "Google login successful ✨", type: "success" });
-    } catch {
+    }
+    
+    
+    catch {
       setPopup({ msg: "Google login failed ❌", type: "error" });
     }
   };
+
 
   useEffect(() => {
       console.log("Google object:", window.google);

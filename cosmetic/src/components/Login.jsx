@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login} from "../api/authApi";
 import "../styles/auth.css";
 import logo from "../assets/saloni-logo.png";
@@ -10,13 +10,31 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [popup, setPopup] = useState(null);
 
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password });
       localStorage.setItem("token", res.data);
+
+      //add
+            localStorage.getItem("token")
+
+          // 👤 USER INFO
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        name: res.data.name,
+        email: res.data.email
+      })
+    );
+
+      navigate("/products");
+
       setPopup({ msg: "Login successful 🎉", type: "success" });
-    } catch {
+    } 
+    
+    catch {
       setPopup({ msg: "Invalid credentials ❌", type: "error" });
     }
   };

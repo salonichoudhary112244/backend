@@ -9,7 +9,7 @@ export default function SaloniHome() {
     <div className="saloni-container">
 
       {/* NAVBAR */}
-        <Navbar />
+        {/* <Navbar /> */}
 
       {/* HERO */}
 <section className="hero-banner">
