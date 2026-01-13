@@ -19,6 +19,7 @@ import { ProductProvider } from "./api/ProductContext";
 export default function App() {
   return (
     <Routes>
+      
            {/* 🟣 AUTH PAGES */}
     <Route element={<AuthLayout />}>
       <Route path="/register" element={<Register />} />
@@ -28,11 +29,6 @@ export default function App() {
       <Route path="/reset-password" element={<ResetPassword />} />
 </Route>
 
-      {/* 🔵 PUBLIC WEBSITE */}
-      <Route element={<MainLayout />}>
-            <Route path="/" element={<SaloniHome />} />
-      <Route path="/products" element={<Products/>}/>
-
      <Route
   path="/seller-product-create"
   element={
@@ -41,6 +37,13 @@ export default function App() {
     </ProductProvider>
   }
   />
+
+      {/* 🔵 PUBLIC WEBSITE */}
+      <Route element={<MainLayout />}>
+            <Route path="/" element={<SaloniHome />} />
+      <Route path="/products" element={<Products/>}/>
+
+
   <Route 
   path="/products/:id" 
   element={<ProductDetailPage />}

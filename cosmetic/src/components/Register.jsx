@@ -4,6 +4,7 @@ import { register } from "../api/authApi";
 import "../styles/auth.css";
 import logo from "../assets/saloni-logo.png";
 import Popup from "./Popup";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -86,7 +87,9 @@ export default function Register() {
         <div style={{ marginTop: "10px", textAlign: "center" }}>
           <Link to="/login">Already have an account? Login</Link>
         </div>
+
       </div>
+      <GoogleLoginButton/>
     </div>
   );
 }

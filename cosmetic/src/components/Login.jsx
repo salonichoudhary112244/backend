@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { login, googleLogin } from "../api/authApi";
+import { login} from "../api/authApi";
 import "../styles/auth.css";
 import logo from "../assets/saloni-logo.png";
 import Popup from "./Popup";
-
+import GoogleLoginButton from "./GoogleLoginButton";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,31 +21,33 @@ export default function Login() {
     }
   };
 
-  const handleGoogleResponse = async (response) => {
-    try {
-      const idToken = response.credential;
-      const res = await googleLogin(idToken);
-      localStorage.setItem("token", res.data);
-      setPopup({ msg: "Google login successful ✨", type: "success" });
-    } catch {
-      setPopup({ msg: "Google login failed ❌", type: "error" });
-    }
-  };
+  // const handleGoogleResponse = async (response) => {
+  //   try {
+  //     const idToken = response.credential;
+  //     const res = await googleLogin(idToken);
+  //     localStorage.setItem("token", res.data);
+  //     setPopup({ msg: "Google login successful ✨", type: "success" });
+  //   } catch {
+  //     setPopup({ msg: "Google login failed ❌", type: "error" });
+  //   }
+  // };
 
-  useEffect(() => {
-    if (window.google) {
-      window.google.accounts.id.initialize({
-        client_id:
-          "628025068852-cjernvki3n4jb7v52fdagb4m1jdrrv4d.apps.googleusercontent.com",
-        callback: handleGoogleResponse,
-      });
+  // useEffect(() => {
+  //     console.log("Google object:", window.google);
 
-      window.google.accounts.id.renderButton(
-        document.getElementById("google-login-btn"),
-        { theme: "outline", size: "large", width: 300 }
-      );
-    }
-  }, []);
+  //   if (window.google) {
+  //     window.google.accounts.id.initialize({
+  //       client_id:
+  //         "628025068852-cjernvki3n4jb7v52fdagb4m1jdrrv4d.apps.googleusercontent.com",
+  //       callback: handleGoogleResponse,
+  //     });
+
+  //     window.google.accounts.id.renderButton(
+  //       document.getElementById("google-login-btn"),
+  //       { theme: "outline", size: "large", width: 300 }
+  //     );
+  //   }
+  // }, []);
 
   return (
     <div className="auth-page">
@@ -77,11 +79,17 @@ export default function Login() {
           <button type="submit">Login</button>
         </form>
 
-        <div
+        {/* <div
           id="google-login-btn"
           style={{ marginTop: "15px", display: "flex", justifyContent: "center" }}
-        ></div>
+        ></div> */}
 
+
+        {/* ✅ SEPARATE GOOGLE LOGIN */}
+        <GoogleLoginButton
+          onSuccess={(msg) => setPopup({ msg, type: "success" })}
+          onError={(msg) => setPopup({ msg, type: "error" })}
+        />
         <div style={{ marginTop: "10px", textAlign: "center" }}>
           <Link to="/register">Create Account</Link>
           <br />

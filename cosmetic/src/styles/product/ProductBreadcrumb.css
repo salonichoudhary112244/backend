@@ -1,0 +1,19 @@
+.product-breadcrumb {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+.product-breadcrumb a {
+  color: #7a2b5f;
+  text-decoration: none;
+}
+
+.product-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.product-breadcrumb .current {
+  color: #111;
+  font-weight: 500;
+}

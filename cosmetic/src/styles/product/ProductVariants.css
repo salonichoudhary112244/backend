@@ -1,0 +1,35 @@
+.product-variants {
+  margin-top: 16px;
+}
+
+.product-variants h4 {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.product-variants .variant-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product-variants button {
+  padding: 8px 14px;
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-variants button:hover {
+  border-color: #7a2b5f;
+}
+
+.product-variants button.active {
+  background: #f9f1f6;
+  border-color: #7a2b5f;
+  color: #7a2b5f;
+}

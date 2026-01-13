@@ -1,0 +1,16 @@
+.product-pricing {
+  margin: 14px 0;
+}
+
+.product-pricing .price {
+  font-size: 28px;
+  font-weight: 600;
+  color: #b12704;
+}
+
+.product-pricing .stock {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #007600;
+}

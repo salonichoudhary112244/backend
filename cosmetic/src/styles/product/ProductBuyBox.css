@@ -1,0 +1,33 @@
+.product-buy-box {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.product-buy-box button {
+  flex: 1;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.product-buy-box .add-to-cart {
+  background: #ffd814;
+  color: #111;
+}
+
+.product-buy-box .add-to-cart:hover {
+  background: #f7ca00;
+}
+
+.product-buy-box .buy-now {
+  background: #7a2b5f;
+  color: #fff;
+}
+
+.product-buy-box .buy-now:hover {
+  background: #64214d;
+}
