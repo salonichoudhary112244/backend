@@ -11,6 +11,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Products from "./components/Products";
 import ProductDetailPage from "./components/ProductDetailPage";
+import CartPage from "./components/CartPage";
 
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
@@ -20,6 +21,8 @@ export default function App() {
   return (
     <Routes>
       
+       {/* 🟢 HOME PAGE (OWN NAVBAR) */}
+      <Route path="/" element={<SaloniHome />} />
            {/* 🟣 AUTH PAGES */}
     <Route element={<AuthLayout />}>
       <Route path="/register" element={<Register />} />
@@ -40,14 +43,13 @@ export default function App() {
 
       {/* 🔵 PUBLIC WEBSITE */}
       <Route element={<MainLayout />}>
-            <Route path="/" element={<SaloniHome />} />
       <Route path="/products" element={<Products/>}/>
-
-
   <Route 
   path="/products/:id" 
   element={<ProductDetailPage />}
   />
+  
+    <Route path="/cart" element={<CartPage />} />
 
  </Route>
 

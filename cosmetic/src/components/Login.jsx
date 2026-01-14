@@ -11,27 +11,32 @@ export default function Login() {
   const [popup, setPopup] = useState(null);
 
   const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await login({ email, password });
-      localStorage.setItem("token", res.data);
+      //  localStorage.setItem("token", res.data);
 
       //add
-            localStorage.getItem("token")
+           // localStorage.getItem("token")
 
           // 👤 USER INFO
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: res.data.name,
-        email: res.data.email
-      })
-    );
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({
+    //     name: res.data.name,
+    //     email: res.data.email
+    //   })
+    // );
+//isko band add to cart ke liye kiya h
+    //add to cart ke liye
+    localStorage.setItem("token", res.data.token);
+localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    setPopup({ msg: "Login successful 🎉", type: "success" });
 
       navigate("/products");
-
-      setPopup({ msg: "Login successful 🎉", type: "success" });
     } 
     
     catch {

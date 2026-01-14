@@ -1,0 +1,41 @@
+.cart-page {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.cart-item {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
+}
+
+.cart-item img {
+  width: 120px;
+  border-radius: 6px;
+}
+
+.cart-info h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.cart-info p {
+  color: #c2185b;
+  font-weight: bold;
+}
+
+.qty-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.qty-box button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}

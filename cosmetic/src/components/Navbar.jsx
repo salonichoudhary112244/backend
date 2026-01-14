@@ -1,23 +1,75 @@
 import { Link ,useNavigate,NavLink} from "react-router-dom";
 import {useState,useEffect} from "react";
-import { MdSpa } from "react-icons/md";   // ✅ ADD THIS
+import { MdSpa ,MdShoppingCart } from "react-icons/md";   // ✅ ADD THIS
+import { getCartCountApi } from "../api/cartApi";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
 
 
 export default function Navbar() {
+//helper cart 
+const getStoredUser = () => {
+  try {
+    const data = localStorage.getItem("user");
+    if (!data || data === "undefined") return null;
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+};
+
+
 
   //  const { cartCount } = useCart();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [cartCount, setCartCount] = useState(0);
+
+// useEffect(() => {
+//   const user = JSON.parse(localStorage.getItem("user"));
+//   if (!user?.id) return;
+
+//   getCartCountApi(user.id).then(res => {
+//     setCartCount(res.data);
+//   });
+// }, []);
+
+//cart ke lite abhi add kiya
+const loadCartCount = async () => {
+//  const user = JSON.parse(localStorage.getItem("user"));
+const user = getStoredUser();
+
+  if (!user?.id) return;
+
+  const res = await getCartCountApi(user.id);
+  setCartCount(res.data);
+};
+
+useEffect(() => {
+  loadCartCount();
+
+  const onStorageChange = () => loadCartCount();
+  window.addEventListener("storage", onStorageChange);
+
+  return () => window.removeEventListener("storage", onStorageChange);
+}, 
+
+[]);
+
 
   /* 🔹 LOAD USER FROM LOCAL STORAGE */
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     // setUser(JSON.parse(storedUser));
+  //   }
+  // }, []);
+//cart ke liye add
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const u = getStoredUser();
+  if (u) setUser(u);
+}, []);
+
 
   /* 🔹 LOGOUT */
   const handleLogout = () => {
@@ -29,6 +81,7 @@ export default function Navbar() {
 
   const navClass = ({ isActive }) =>
     `nav-link ${isActive ? "active" : ""}`;
+
 
 
   return (
@@ -51,6 +104,30 @@ export default function Navbar() {
         <li>Hair Care</li>
         <li>Makeup</li>
       </ul>
+
+        <div className="seller-search">
+        <input placeholder="Search " />
+      </div>
+      
+      {/* cart */}
+
+{/* <div className="cart-icon" onClick={() => navigate("/cart")}>
+  <MdShoppingCart size={22} />
+  {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+</div> */}
+
+<div
+  className="cart-icon"
+  onClick={() => navigate("/cart")}
+>
+  <MdShoppingCart size={22} />
+  {cartCount > 0 && (
+    <span className="cart-badge">{cartCount}</span>
+  )}
+</div>
+
+
+
  {/* RIGHT LINKS */}
         <div className="nav-right d-none d-md-flex">
 
@@ -69,8 +146,8 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <NavLink to="/login" className={navClass}>Login</NavLink>
-              <NavLink to="/register" className={navClass}>Register</NavLink>
+              <NavLink to="/login" className="signin-btn">Login</NavLink>
+              <NavLink to="/register" className="register-btn">Register</NavLink>
             </>
           )}
 

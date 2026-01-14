@@ -4,6 +4,7 @@ import "../styles/SellerPanel.css";
 export default function SellerNavbar() {
   return (
     <div className="seller-navbar">
+
       <div className="seller-brand">
         🌸 <span>SALONI</span>
         <small>Seller Panel</small>
@@ -16,6 +17,7 @@ export default function SellerNavbar() {
       <div className="seller-profile">
         Saloni Choudhary ⌄
       </div>
+      
     </div>
   );
 }
