@@ -15,6 +15,7 @@ export const addToCartApi = async ({ productId, variantId, quantity }) => {
 
 export const getCartApi = async () => {
   const user = getStoredUser();
+  if (!user || !user.id) throw new Error("User not logged in");
   return axiosInstance.get(`/auth/cart/${user.id}`);
 };
 

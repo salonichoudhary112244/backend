@@ -16,33 +16,42 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await login({ email, password });
-       localStorage.setItem("token", res.data);
 
-      //add
-           // localStorage.getItem("token")
+        // 👇👇 YAHAN ADD KARO (IMPORTANT)
+    console.log("LOGIN RESPONSE:", res.data);
 
-          // 👤 USER INFO
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-         id: res.data.id,//add cart 
-        name: res.data.name,
-        email: res.data.email
-      })
+//     if (!res.data || !res.data.user || !res.data.user.id) {
+//   throw new Error("Invalid login response: user missing");
+// }
+
+ localStorage.setItem("token", res.data.token);
+
+localStorage.setItem(
+  "user",
+  JSON.stringify({
+    id: res.data.id,
+    name: res.data.name,
+    email: res.data.email
+  })
+);
+
+
+
+    // 🔍 4. DEBUG — YAHI ADD KARNA THA
+    console.log(
+      "SAVED USER:",
+      JSON.parse(localStorage.getItem("user"))
     );
-//isko band add to cart ke liye kiya h
-    //add to cart ke liye
-//     localStorage.setItem("token", res.data.token);
-// localStorage.setItem("user", JSON.stringify(res.data.user));
 
     setPopup({ msg: "Login successful 🎉", type: "success" });
 
       navigate("/products");
     } 
-    
-    catch {
-      setPopup({ msg: "Invalid credentials ❌", type: "error" });
-    }
+    catch (err) {
+    console.error(err);
+    setPopup({ msg: "Invalid credentials ❌", type: "error" });
+  }
+
   };
 
   // const handleGoogleResponse = async (response) => {

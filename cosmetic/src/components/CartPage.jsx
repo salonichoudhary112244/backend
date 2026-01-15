@@ -9,10 +9,14 @@ import {
 export default function CartPage() {
   const [items, setItems] = useState([]);
 
-  const loadCart = async () => {
+const loadCart = async () => {
+  try {
     const res = await getCartApi();
     setItems(res.data);
-  };
+  } catch (err) {
+    console.error("Cart load failed", err);
+  }
+};
 
   useEffect(() => {
     loadCart();

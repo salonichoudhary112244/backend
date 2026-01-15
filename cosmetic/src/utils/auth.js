@@ -1,22 +1,15 @@
-// //add to cart ke liye banaya
+// add to cart ke liye 
 
-// export const getStoredUser = () => {
-//   try {
-//     const data = localStorage.getItem("user");
-//     if (!data || data === "undefined") return null;
-//     return JSON.parse(data);
-//   } catch {
-//     return null;
-//   }
-// };
-
+// src/utils/auth.js
 
 export const getStoredUser = () => {
   try {
-    const raw = localStorage.getItem("user");
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch {
+    const user = localStorage.getItem("user");
+    const parsedUser = user ? JSON.parse(user) : null;
+
+    return parsedUser && parsedUser.id ? parsedUser : null;
+  } catch (err) {
+    console.error("Failed to parse user from localStorage", err);
     return null;
   }
 };
