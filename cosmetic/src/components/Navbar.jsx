@@ -2,21 +2,10 @@ import { Link ,useNavigate,NavLink} from "react-router-dom";
 import {useState,useEffect} from "react";
 import { MdSpa ,MdShoppingCart } from "react-icons/md";   // ✅ ADD THIS
 import { getCartCountApi } from "../api/cartApi";
+import { getStoredUser } from "../utils/auth";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
-
-
 export default function Navbar() {
-//helper cart 
-const getStoredUser = () => {
-  try {
-    const data = localStorage.getItem("user");
-    if (!data || data === "undefined") return null;
-    return JSON.parse(data);
-  } catch {
-    return null;
-  }
-};
 
 
 
@@ -34,53 +23,60 @@ const getStoredUser = () => {
 //   });
 // }, []);
 
-//cart ke lite abhi add kiya
-const loadCartCount = async () => {
-//  const user = JSON.parse(localStorage.getItem("user"));
-const user = getStoredUser();
 
-  if (!user?.id) return;
+//isko abhi check krne ke liye band kiya h iski jagah neche bala h
+// useEffect(() => {
+//   const load = async () => {
+//     try {
+//       const res = await getCartCountApi();
+//       setCartCount(res.data);
+//     } catch {}
+//   };
 
-  const res = await getCartCountApi(user.id);
-  setCartCount(res.data);
-};
+//   load();
+//   window.addEventListener("storage", load);
+//   return () => window.removeEventListener("storage", load);
+// }, []);
+
+
+
+//   /* 🔹 LOAD USER FROM LOCAL STORAGE */
+//   useEffect(() => {
+//     const storedUser = localStorage.getItem("user");
+//     if (storedUser) {
+//       // setUser(JSON.parse(storedUser));
+//     }
+//   }, []);
+//   /* 🔹 LOGOUT */
+//   const handleLogout = () => {
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("user");
+//     setUser(null);
+//     navigate("/login");
+//   };
+
+//   const navClass = ({ isActive }) =>
+//     `nav-link ${isActive ? "active" : ""}`;
+
 
 useEffect(() => {
-  loadCartCount();
+  const user = getStoredUser();
+  if (!user?.id) return;
 
-  const onStorageChange = () => loadCartCount();
-  window.addEventListener("storage", onStorageChange);
-
-  return () => window.removeEventListener("storage", onStorageChange);
-}, 
-
-[]);
-
-
-  /* 🔹 LOAD USER FROM LOCAL STORAGE */
-  // useEffect(() => {
-  //   const storedUser = localStorage.getItem("user");
-  //   if (storedUser) {
-  //     // setUser(JSON.parse(storedUser));
-  //   }
-  // }, []);
-//cart ke liye add
-  useEffect(() => {
-  const u = getStoredUser();
-  if (u) setUser(u);
-}, []);
-
-
-  /* 🔹 LOGOUT */
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setUser(null);
-    navigate("/login");
+  const loadCartCount = async () => {
+    try {
+      const res = await getCartCountApi(user.id);
+      setCartCount(res.data);
+    } catch (e) {
+      console.error("Cart count error", e);
+    }
   };
 
-  const navClass = ({ isActive }) =>
-    `nav-link ${isActive ? "active" : ""}`;
+  loadCartCount();
+
+  window.addEventListener("cartUpdated", loadCartCount);
+  return () => window.removeEventListener("cartUpdated", loadCartCount);
+}, []);
 
 
 
@@ -110,11 +106,6 @@ useEffect(() => {
       </div>
       
       {/* cart */}
-
-{/* <div className="cart-icon" onClick={() => navigate("/cart")}>
-  <MdShoppingCart size={22} />
-  {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-</div> */}
 
 <div
   className="cart-icon"

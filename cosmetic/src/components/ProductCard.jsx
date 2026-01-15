@@ -1,27 +1,28 @@
 import { useNavigate } from "react-router-dom";
-
+import { addToCartApi } from "../api/cartApi";
 export default function ProductCard({ product }) {
 
   const navigate = useNavigate();
-
-  // const imageUrl =
-  //   product.images?.find(img => img.isPrimary)?.imageUrl ||
-  //   product.images?.[0]?.imageUrl;
-
   //pehle
   const imageSrc = product.imageUrl
     ? product.imageUrl   // Cloudinary URL already full
     : "/no-image.png";
+// add to cart ke liye 
+      const handleAddToCart = async (e) => {
+    e.stopPropagation();
 
-//baad me
-//   <img
-//   src={
-//     product.imageUrl
-//       ? `http://localhost:8080/${product.imageUrl}`
-//       : "/no-image.png"
-//   }
-//   alt={product.name}
-// />
+    try {
+      await addToCartApi({
+        productId: product.productId,
+        variantId: product.defaultVariantId,
+        quantity: 1
+      });
+
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch {
+      navigate("/login");
+    }
+  };
 
   return (
     <div
@@ -41,6 +42,8 @@ export default function ProductCard({ product }) {
         <div className="product-price">
           ₹{product.price}
         </div>
+      <button onClick={handleAddToCart}>Add to Cart</button>
+
       </div>
     </div>
   );

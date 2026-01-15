@@ -49,7 +49,7 @@ export default function App() {
   element={<ProductDetailPage />}
   />
   
-    <Route path="/cart" element={<CartPage />} />
+   <Route path="/cart" element={<CartPage />} /> 
 
  </Route>
 

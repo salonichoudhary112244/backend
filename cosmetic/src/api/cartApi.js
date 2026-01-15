@@ -1,22 +1,32 @@
 import axiosInstance from "./axiosInstance";
+import { getStoredUser } from "../utils/auth";
 
-//cart ke liye
-export const addToCartApi = (payload) =>
-  axiosInstance.post("/auth/cart/add", payload);
+export const addToCartApi = async ({ productId, variantId, quantity }) => {
+  const user = getStoredUser();
+  if (!user) throw new Error("Login required");
 
-export const getCartApi = (userId) =>
-  axiosInstance.get(`/auth/cart/${userId}`);
+  return axiosInstance.post("/auth/cart/add", {
+    userId: user.id,
+    productId,
+    variantId,
+    quantity
+  });
+};
 
-//quntity
+export const getCartApi = async () => {
+  const user = getStoredUser();
+  return axiosInstance.get(`/auth/cart/${user.id}`);
+};
+
+export const getCartCountApi = async (userId) => {
+  return axiosInstance.get(`/auth/cart/count/${userId}`);
+};
+
+export const increaseQtyApi = (cartItemId) =>
+  axiosInstance.post(`/auth/cart/add`, { cartItemId });
+
 export const decreaseQtyApi = (cartItemId) =>
   axiosInstance.put(`/auth/cart/decrease/${cartItemId}`);
 
-//cart-icon
-// export const getCartCountApi = (userId) =>
-//   axiosInstance.get(`/auth/cart/count?userId=${userId}`);
-
-
-export const getCartCountApi = (userId) =>
-  axiosInstance.get(`/auth/cart/count`, {
-    params: { userId }
-  });
+export const removeCartItemApi = (cartItemId) =>
+  axiosInstance.delete(`/auth/cart/remove/${cartItemId}`);
