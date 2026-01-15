@@ -8,21 +8,28 @@ export default function ProductCard({ product }) {
     ? product.imageUrl   // Cloudinary URL already full
     : "/no-image.png";
 // add to cart ke liye 
-      const handleAddToCart = async (e) => {
-    e.stopPropagation();
+const handleAddToCart = async (e) => {
+  e.stopPropagation();
 
-    try {
-      await addToCartApi({
-        productId: product.productId,
-        variantId: product.defaultVariantId,
-        quantity: 1
-      });
+  
+  // ⚠️ VARIANT SAFETY CHECK — YAHI ADD KARNA HAI
+  if (!product.defaultVariantId) {
+    alert("Please select a variant");
+    return;
+  }
+  
+  try {
+    await addToCartApi({
+      productId: product.id,              // ✅ CORRECT
+      variantId: product.defaultVariantId, // ✅ (must exist)
+      quantity: 1
+    });
 
-      window.dispatchEvent(new Event("cartUpdated"));
-    } catch {
-      navigate("/login");
-    }
-  };
+    window.dispatchEvent(new Event("cartUpdated"));
+  } catch {
+    navigate("/login");
+  }
+};
 
   return (
     <div

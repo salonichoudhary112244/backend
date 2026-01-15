@@ -67,6 +67,7 @@ export default function ProductDetailPage() {
           <ProductVariants
             variants={product.variants}
             selected={selectedVariant}
+             productId={product.id}//add this line add to cart
             onSelect={setSelectedVariant}
           />
           <ProductBuyBox variant={selectedVariant} />

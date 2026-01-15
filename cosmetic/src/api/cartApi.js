@@ -3,8 +3,6 @@ import { getStoredUser } from "../utils/auth";
 
 export const addToCartApi = async ({ productId, variantId, quantity }) => {
   const user = getStoredUser();
-  if (!user) throw new Error("Login required");
-
   return axiosInstance.post("/auth/cart/add", {
     userId: user.id,
     productId,
@@ -12,6 +10,7 @@ export const addToCartApi = async ({ productId, variantId, quantity }) => {
     quantity
   });
 };
+
 
 export const getCartApi = async () => {
   const user = getStoredUser();
