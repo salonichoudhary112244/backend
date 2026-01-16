@@ -58,11 +58,11 @@ const loadCart = async () => {
             <h4>{item.productName}</h4>
             <p>₹{item.price}</p>
 
-            <button onClick={() => dec(item.id)}>-</button>
+            <button onClick={() => dec(item.cartItemId)}>-</button>
             <span>{item.quantity}</span>
-            <button onClick={() => inc(item.id)}>+</button>
+            <button onClick={() => inc(item.cartItemId)}>+</button>
 
-            <button onClick={() => remove(item.id)}>Remove</button>
+            <button onClick={() => remove(item.cartItemId)}>Remove</button>
           </div>
         </div>
       ))}

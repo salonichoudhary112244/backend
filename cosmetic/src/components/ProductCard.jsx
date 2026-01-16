@@ -18,6 +18,7 @@ const handleAddToCart = async (e) => {
     return;
   }
   
+  
   try {
     await addToCartApi({
       productId: product.id,              // ✅ CORRECT
