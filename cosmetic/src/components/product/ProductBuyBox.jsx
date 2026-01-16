@@ -6,7 +6,7 @@ import { addToCartApi } from "../../api/cartApi";
 
 export default function ProductBuyBox({ variant ,productId}) {
     const navigate = useNavigate();
-    console.log("BUY BOX PROPS:", { variant, productId });
+    // console.log("BUY BOX PROPS:", { variant, productId });
 
   //  // ❌ variant null ho to bhi button dikhao (disabled)
   // if (!variant) {
@@ -17,36 +17,42 @@ export default function ProductBuyBox({ variant ,productId}) {
   //   );
   // }
 //temp check
-  console.log("BUY BOX DEBUG:", {
-  variant,
-  variantId: variant?.id,
-  productId
-});
+  // 🔍 FINAL DEBUG (must see productId here)
+  // console.log("BUY BOX PROPS FINAL:", {
+  //   productId,
+  //   variantId: variant?.id
+  // });
 
-if (!variant?.id || !productId) {
-  alert("Invalid variant");
-  return;
-}
+// if (!variant?.id || !productId) {
+//   alert("Invalid variant");
+//   return;
+// }
 //   //add to cart ke liye
 const handleAddToCart = async () => {
 
-  console.log("ADD TO CART PAYLOAD:", {
-    productId,
-    variantId: variant?.id
-  });
+  // console.log("ADD TO CART PAYLOAD:", {
+  //   productId,
+  //   variantId: variant?.id
+  // });
 
-  if (!variant?.id || !productId) {
-    alert("Invalid variant");
-    return;
-  }
+// const finalProductId = productId || variant?.productId;
 
-  try {
-    await addToCartApi({
-      productId,
-      variantId: variant.id,
-      quantity: 1
-    });
+// console.log("FINAL IDS:", {
+//   productId: finalProductId,
+//   variantId: variant?.id
+// });
 
+if (!productId || !variant?.id) {
+  alert("Invalid variant");
+  return;
+}
+
+    try {
+   await addToCartApi({
+  productId,
+  variantId: variant.id,       // ✅
+  quantity: 1
+});
     window.dispatchEvent(new Event("cartUpdated"));
   } catch (err) {
     console.error(err);

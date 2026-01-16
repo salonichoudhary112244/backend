@@ -72,8 +72,9 @@ export default function ProductDetailPage() {
           />
           <ProductBuyBox
            variant={selectedVariant} 
-           productId={product.id}   // 🔥 THIS IS MUST add this line cart
-          />
+           //productId={product.id}   // 🔥 THIS IS MUST add this line cart
+          productId={Number(id)}   // 🔥 GUARANTEED productId
+         />
         </div>
 
       </div>
