@@ -1,20 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { addToCartApi } from "../api/cartApi";
-import { addToWishlistApi } from "../api/wishlistApi";
 import { getStoredUser } from "../utils/auth";
 import axiosInstance from "../api/axiosInstance";
-import { MdFavoriteBorder, MdFavorite, MdShoppingCart } from "react-icons/md";
-import { getWishlistApi } from "../api/wishlistApi";
 
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { MdFavorite, MdFavoriteBorder, MdShoppingCart } from "react-icons/md";
+import { addToWishlistApi, removeWishlistApi, getWishlistApi } from "../api/wishlistApi";
 export default function ProductCard({ product }) {
 
   const navigate = useNavigate();
 
 //wishlist
-    const user = getStoredUser();
-const [isWishlisted, setIsWishlisted] = useState(false);
+  const [wishlisted, setWishlisted] = useState(false);
+const user = getStoredUser();
 
   const addWishlist = async (e) => {
     e.stopPropagation();
@@ -42,7 +40,7 @@ useEffect(() => {
     const exists = res.data.some(
       (item) => item.productId === product.productId
     );
-    setIsWishlisted(exists);
+    setWishlisted(exists);
   };
 
   checkWishlist();
@@ -51,20 +49,20 @@ useEffect(() => {
 const toggleWishlist = async (e) => {
   e.stopPropagation();
 
-  if (!user) {
+  if (!user?.id) {
     navigate("/login");
     return;
   }
 
-  if (isWishlisted) {
+  if (wishlisted) {
     await removeWishlistApi(user.id, product.productId);
-    setIsWishlisted(false);
+    setWishlisted(false);
   } else {
     await addToWishlistApi({
       userId: user.id,
-      productId: product.productId
+      productId: product.productId,
     });
-    setIsWishlisted(true);
+    setWishlisted(true);
   }
 
   window.dispatchEvent(new Event("wishlistUpdated"));
@@ -138,17 +136,16 @@ const handleAddToCart = async (e) => {
       </div>
 {/* 
 //wishlist */}
-      <div className="card-actions">
-  <span onClick={toggleWishlist}>
-    {isWishlisted ? (
-      <MdFavorite color="#e91e63" />
-    ) : (
-      <MdFavoriteBorder />
-    )}
-  </span>
+ <div className="card-actions">
+  {wishlisted ? (
+    <MdFavorite color="#e91e63" onClick={toggleWishlist} />
+  ) : (
+    <MdFavoriteBorder onClick={toggleWishlist} />
+  )}
 
   <MdShoppingCart onClick={addCart} />
 </div>
+
 
     </div>
   );
