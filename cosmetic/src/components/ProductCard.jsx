@@ -12,20 +12,6 @@ export default function ProductCard({ product }) {
 // add to cart ke liye 
 const handleAddToCart = async (e) => {
   e.stopPropagation();
-  
-  // // ⚠️ VARIANT SAFETY CHECK — YAHI ADD KARNA HAI
-  // if (!product.defaultVariantId) {
-  //   alert("Please select a variant");
-  //   return;
-  // }
-
-  // ✅ ALWAYS PICK FIRST VARIANT
-  //   const variantId = product.variants?.[0]?.id;
-  //  const productId = product.productId; // 🔥 IMPORTANT FIX
-
-  
-
-
     try {
       // 🔥 STEP 1: Product detail API call
       const res = await axiosInstance.get(
