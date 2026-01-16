@@ -106,11 +106,13 @@ import {
   decreaseQtyApi,
   removeCartItemApi
 } from "../api/cartApi";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/AddToCartPage.css";
 
 export default function CartPage() {
   const [items, setItems] = useState([]);
+const navigate = useNavigate();
 
   const loadCart = async () => {
     try {
@@ -229,9 +231,13 @@ export default function CartPage() {
           <span>₹{totalPrice}</span>
         </div>
 
-        <button className="checkout-btn">
-          Proceed to Checkout
-        </button>
+        <button
+          className="checkout-btn"
+          onClick={() => navigate("/checkout")}
+        >
+         Proceed to Checkout
+         </button>
+
       </div>
     </div>
   );
