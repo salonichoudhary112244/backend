@@ -12,7 +12,7 @@ import ResetPassword from "./components/ResetPassword";
 import Products from "./components/Products";
 import ProductDetailPage from "./components/ProductDetailPage";
 import CartPage from "./components/CartPage";
-
+import Wishlist from "./components/Wishlist";
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
 
@@ -50,7 +50,7 @@ export default function App() {
   />
   
    <Route path="/cart" element={<CartPage />} /> 
-
+<Route path="/wishlist" element={<Wishlist />} />
  </Route>
 
     </Routes>

@@ -16,6 +16,10 @@ export default function Products() {
     try {
       // ✅ USER LIST API (THIS WAS MISSING / WRONG BEFORE)
       const res = await axiosInstance.get("/auth/products");
+
+          // 🔥 YAHAN ADD KARO (STEP 3 - PART 1)
+    console.log("PRODUCT API DATA:", res.data);
+
       setProducts(res.data);
     } catch (err) {
       console.error(err);
@@ -24,6 +28,9 @@ export default function Products() {
       setLoading(false);
     }
   };
+
+    // 🔥 STEP 3 - STATE DATA
+  console.log("PRODUCTS STATE:", products);
 
   if (loading) return <p>Loading products...</p>;
 

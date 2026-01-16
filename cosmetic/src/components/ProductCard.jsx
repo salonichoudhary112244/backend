@@ -1,10 +1,76 @@
 import { useNavigate } from "react-router-dom";
 import { addToCartApi } from "../api/cartApi";
+import { addToWishlistApi } from "../api/wishlistApi";
+import { getStoredUser } from "../utils/auth";
 import axiosInstance from "../api/axiosInstance";
+import { MdFavoriteBorder, MdFavorite, MdShoppingCart } from "react-icons/md";
+import { getWishlistApi } from "../api/wishlistApi";
+
+import { useState, useEffect } from "react";
 
 export default function ProductCard({ product }) {
 
   const navigate = useNavigate();
+
+//wishlist
+    const user = getStoredUser();
+const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const addWishlist = async (e) => {
+    e.stopPropagation();
+    await addToWishlistApi({
+      userId: user.id,
+      productId: product.productId
+    });
+    window.dispatchEvent(new Event("wishlistUpdated"));
+  };
+    const addCart = async (e) => {
+    e.stopPropagation();
+    await addToCartApi({
+      productId: product.productId,
+      variantId: product.defaultVariantId,
+      quantity: 1
+    });
+    window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+useEffect(() => {
+  const checkWishlist = async () => {
+    if (!user?.id) return;
+
+    const res = await getWishlistApi(user.id);
+    const exists = res.data.some(
+      (item) => item.productId === product.productId
+    );
+    setIsWishlisted(exists);
+  };
+
+  checkWishlist();
+}, []);
+
+const toggleWishlist = async (e) => {
+  e.stopPropagation();
+
+  if (!user) {
+    navigate("/login");
+    return;
+  }
+
+  if (isWishlisted) {
+    await removeWishlistApi(user.id, product.productId);
+    setIsWishlisted(false);
+  } else {
+    await addToWishlistApi({
+      userId: user.id,
+      productId: product.productId
+    });
+    setIsWishlisted(true);
+  }
+
+  window.dispatchEvent(new Event("wishlistUpdated"));
+};
+
+
   //pehle
   const imageSrc = product.imageUrl
     ? product.imageUrl   // Cloudinary URL already full
@@ -49,7 +115,8 @@ const handleAddToCart = async (e) => {
   return (
     <div
       className="product-card"
-       onClick={() => navigate(`/products/${product.productId}`)}
+       onClick={() => navigate
+        (`/products/${product.productId}`)}
     >
       <img
          src={imageSrc }
@@ -64,11 +131,25 @@ const handleAddToCart = async (e) => {
         <div className="product-price">
           ₹{product.price}
         </div>
+
       <button onClick={handleAddToCart}>
         Add to Cart
       </button>
-
       </div>
+{/* 
+//wishlist */}
+      <div className="card-actions">
+  <span onClick={toggleWishlist}>
+    {isWishlisted ? (
+      <MdFavorite color="#e91e63" />
+    ) : (
+      <MdFavoriteBorder />
+    )}
+  </span>
+
+  <MdShoppingCart onClick={addCart} />
+</div>
+
     </div>
   );
 }

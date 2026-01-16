@@ -1,30 +1,34 @@
 import { Link ,useNavigate,NavLink} from "react-router-dom";
 import {useState,useEffect} from "react";
-import { MdSpa ,MdShoppingCart } from "react-icons/md";   // ✅ ADD THIS
+import { MdSpa ,MdShoppingCart,MdFavoriteBorder   } from "react-icons/md";   // ✅ ADD THIS
 import { getCartApi  } from "../api/cartApi";
+import { getWishlistApi } from "../api/wishlistApi";
 import { getStoredUser } from "../utils/auth";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
 export default function Navbar() {
-
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+const [wishlistCount, setWishlistCount] = useState(0);
 
-//   /* 🔹 LOAD USER FROM LOCAL STORAGE */
-//   useEffect(() => {
-//     const storedUser = localStorage.getItem("user");
-//     if (storedUser) {
-//       // setUser(JSON.parse(storedUser));
-//     }
-//   }, []);
+
+  // 🔹 LOAD USER FROM LOCAL STORAGE
+// useEffect(() => {
+//   const storedUser = getStoredUser();
+//   if (storedUser) {
+//     setUser(storedUser);   // ✅ YAHI user set hoga
+//   }
+// }, []);
+
+
 //   /* 🔹 LOGOUT */
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("user");
-//     setUser(null);
-//     navigate("/login");
-//   };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user");
+  //   setUser(null);
+  //   navigate("/login");
+  // };
 
 //   const navClass = ({ isActive }) =>
 //     `nav-link ${isActive ? "active" : ""}`;
@@ -34,24 +38,30 @@ useEffect(() => {
   const user = getStoredUser();
   if (!user?.id) return;
 
-  const loadCartCount = async () => {
+  const loadCounts = async () => {
     try {
-      const res = await getCartApi();
-
+       const cartRes = await getCartApi();
+      const wishRes = await getWishlistApi(user.id);
       // 🔥 UNIQUE ITEMS COUNT
-      setCartCount(res.data.length);
+
+      setCartCount(cartRes.data.length);     // unique cart items
+      setWishlistCount(wishRes.data.length); // wishlist count
     } catch (e) {
       console.error("Cart count error", e);
     }
   };
 
-  loadCartCount();
 
-  window.addEventListener("cartUpdated", loadCartCount);
-  return () => window.removeEventListener("cartUpdated", loadCartCount);
+  loadCounts();
+
+  window.addEventListener("cartUpdated", loadCounts);
+  window.addEventListener("wishlistUpdated", loadCounts);
+
+  return () => {
+    window.removeEventListener("cartUpdated", loadCounts);
+    window.removeEventListener("wishlistUpdated", loadCounts);
+  };
 }, []);
-
-
 
   return (
     <nav className="saloni-navbar">
@@ -90,6 +100,17 @@ useEffect(() => {
   )}
 </div>
 
+
+{/* ❤️ WISHLIST */}
+<div
+  className="cart-icon"
+  onClick={() => navigate("/wishlist")}
+>
+  <MdFavoriteBorder size={22} />
+  {wishlistCount > 0 && (
+    <span className="cart-badge">{wishlistCount}</span>
+  )}
+</div>
 
 
  {/* RIGHT LINKS */}
