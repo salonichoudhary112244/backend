@@ -18,15 +18,25 @@ export const getCartApi = async () => {
   return axiosInstance.get(`/auth/cart/${user.id}`);
 };
 
+// ✅ COUNT
 export const getCartCountApi = async (userId) => {
   return axiosInstance.get(`/auth/cart/count/${userId}`);
 };
 
-export const increaseQtyApi = (cartItemId) =>
-  axiosInstance.post(`/auth/cart/add`, { cartItemId });
+// ✅ INCREASE QTY (🔥 FIX)
+export const increaseQtyApi = (cartItemId) => {
+  console.log("INCREASE API ID:", cartItemId); // debug
+  return axiosInstance.put(
+    `/auth/cart/increase/${cartItemId}`,
+    null   // ⚠️ IMPORTANT: body null honi chahiye
+  );
+};
 
+// ✅ DECREASE QTY
 export const decreaseQtyApi = (cartItemId) =>
   axiosInstance.put(`/auth/cart/decrease/${cartItemId}`);
 
+
+// ✅ REMOVE
 export const removeCartItemApi = (cartItemId) =>
   axiosInstance.delete(`/auth/cart/remove/${cartItemId}`);

@@ -22,11 +22,13 @@ const loadCart = async () => {
     loadCart();
   }, []);
 
-  const inc = async (id) => {
-    await increaseQtyApi(id);
-    loadCart();
-    window.dispatchEvent(new Event("cartUpdated"));
-  };
+const inc = async (id) => {
+  console.log("INCREASE CART ITEM ID:", id);
+  await increaseQtyApi(id);
+  loadCart();
+  window.dispatchEvent(new Event("cartUpdated"));
+};
+
 
   const dec = async (id) => {
     await decreaseQtyApi(id);
@@ -49,8 +51,8 @@ const loadCart = async () => {
           {/* pehle */}
           {/* <img src={item.imageUrl} /> */} 
 
-          <img
-  src={item.image || "/no-image.png"}
+  <img
+  src={item.imageUrl ? item.imageUrl : "/no-image.png"}
   alt={item.productName}
 />
 

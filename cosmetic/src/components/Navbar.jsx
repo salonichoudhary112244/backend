@@ -1,44 +1,15 @@
 import { Link ,useNavigate,NavLink} from "react-router-dom";
 import {useState,useEffect} from "react";
 import { MdSpa ,MdShoppingCart } from "react-icons/md";   // ✅ ADD THIS
-import { getCartCountApi } from "../api/cartApi";
+import { getCartApi  } from "../api/cartApi";
 import { getStoredUser } from "../utils/auth";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
 export default function Navbar() {
 
-
-
-  //  const { cartCount } = useCart();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [cartCount, setCartCount] = useState(0);
-
-// useEffect(() => {
-//   const user = JSON.parse(localStorage.getItem("user"));
-//   if (!user?.id) return;
-
-//   getCartCountApi(user.id).then(res => {
-//     setCartCount(res.data);
-//   });
-// }, []);
-
-
-//isko abhi check krne ke liye band kiya h iski jagah neche bala h
-// useEffect(() => {
-//   const load = async () => {
-//     try {
-//       const res = await getCartCountApi();
-//       setCartCount(res.data);
-//     } catch {}
-//   };
-
-//   load();
-//   window.addEventListener("storage", load);
-//   return () => window.removeEventListener("storage", load);
-// }, []);
-
-
 
 //   /* 🔹 LOAD USER FROM LOCAL STORAGE */
 //   useEffect(() => {
@@ -65,8 +36,10 @@ useEffect(() => {
 
   const loadCartCount = async () => {
     try {
-      const res = await getCartCountApi(user.id);
-      setCartCount(res.data);
+      const res = await getCartApi();
+
+      // 🔥 UNIQUE ITEMS COUNT
+      setCartCount(res.data.length);
     } catch (e) {
       console.error("Cart count error", e);
     }
