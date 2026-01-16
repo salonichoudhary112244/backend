@@ -46,7 +46,14 @@ const loadCart = async () => {
 
       {items.map(item => (
         <div key={item.id} className="cart-row">
-          <img src={item.imageUrl} />
+          {/* pehle */}
+          {/* <img src={item.imageUrl} /> */} 
+
+          <img
+  src={item.image || "/no-image.png"}
+  alt={item.productName}
+/>
+
           <div>
             <h4>{item.productName}</h4>
             <p>₹{item.price}</p>
