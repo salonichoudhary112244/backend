@@ -6,41 +6,9 @@ import { addToCartApi } from "../../api/cartApi";
 
 export default function ProductBuyBox({ variant ,productId}) {
     const navigate = useNavigate();
-    // console.log("BUY BOX PROPS:", { variant, productId });
 
-  //  // ❌ variant null ho to bhi button dikhao (disabled)
-  // if (!variant) {
-  //   return (
-  //     <div className="buy-box">
-  //       <button disabled>Please select a variant</button>
-  //     </div>
-  //   );
-  // }
-//temp check
-  // 🔍 FINAL DEBUG (must see productId here)
-  // console.log("BUY BOX PROPS FINAL:", {
-  //   productId,
-  //   variantId: variant?.id
-  // });
-
-// if (!variant?.id || !productId) {
-//   alert("Invalid variant");
-//   return;
-// }
 //   //add to cart ke liye
 const handleAddToCart = async () => {
-
-  // console.log("ADD TO CART PAYLOAD:", {
-  //   productId,
-  //   variantId: variant?.id
-  // });
-
-// const finalProductId = productId || variant?.productId;
-
-// console.log("FINAL IDS:", {
-//   productId: finalProductId,
-//   variantId: variant?.id
-// });
 
 if (!productId || !variant?.id) {
   alert("Invalid variant");
@@ -50,7 +18,7 @@ if (!productId || !variant?.id) {
     try {
    await addToCartApi({
   productId,
-  variantId: variant.id,       // ✅
+  variantId: variant.id,    
   quantity: 1
 });
     window.dispatchEvent(new Event("cartUpdated"));
