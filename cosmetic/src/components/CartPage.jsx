@@ -131,11 +131,15 @@ export default function CartPage() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  const dec = async (id) => {
-    await decreaseQtyApi(id);
-    loadCart();
-    window.dispatchEvent(new Event("cartUpdated"));
-  };
+ const dec = async (item) => {
+  if (item.quantity <= 1) {
+    return; // ❌ 1 se neeche nahi jaane dena
+  }
+
+  await decreaseQtyApi(item.cartItemId);
+  loadCart();
+  window.dispatchEvent(new Event("cartUpdated"));
+};
 
   const remove = async (id) => {
     await removeCartItemApi(id);
@@ -182,7 +186,12 @@ export default function CartPage() {
 
             {/* QTY */}
             <div className="cart-qty">
-              <button onClick={() => dec(item.cartItemId)}>-</button>
+<button
+  onClick={() => dec(item)}
+  disabled={item.quantity === 1}
+>
+  −
+</button>
               <span>{item.quantity}</span>
               <button onClick={() => inc(item.cartItemId)}>+</button>
             </div>
@@ -191,6 +200,12 @@ export default function CartPage() {
             <div className="cart-subtotal">
               ₹{item.price * item.quantity}
             </div>
+            <button
+  className="remove-btn"
+  onClick={() => remove(item.cartItemId)}
+>
+  Remove
+</button>
           </div>
         ))}
       </div>

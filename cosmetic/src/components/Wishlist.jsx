@@ -5,6 +5,7 @@ import { addToCartApi } from "../api/cartApi";
 import { getStoredUser } from "../utils/auth";
 import { MdShoppingCart, MdDelete } from "react-icons/md";
 import "../styles/wishlist.css";
+import axiosInstance from "../api/axiosInstance";
 
 export default function Wishlist() {
   const navigate = useNavigate();
@@ -27,32 +28,40 @@ export default function Wishlist() {
     window.dispatchEvent(new Event("wishlistUpdated"));
   };
 
-//   const addToCart = async (item) => {
-//     await addToCartApi({
-//       productId: item.productId,
-//       variantId: item.variantId,
-//       quantity: 1
-//     });
-//     window.dispatchEvent(new Event("cartUpdated"));
-//   };
-
 const addToCart = async (item) => {
-  const variantId =
-    item.variantId ||
-    item.variant?.id;
+  try {
+    // 🔥 STEP 1: product detail se variants lao
+    const res = await axiosInstance.get(
+      `/auth/products/${item.productId}/page`
+    );
 
-  if (!variantId) {
-    alert("Variant not found");
-    return;
+    const variants = res.data?.variants;
+
+    if (!variants || variants.length === 0) {
+      alert("Variant not found");
+      return;
+    }
+
+    const variantId = variants[0].id; // ✅ FIRST VARIANT
+
+    // 🔥 STEP 2: add to cart
+    await addToCartApi({
+      productId: item.productId,
+      variantId,
+      quantity: 1
+    });
+
+    // 🔥 STEP 3: wishlist se hatao
+    await removeWishlistApi(user.id, item.productId);
+
+    window.dispatchEvent(new Event("cartUpdated"));
+    window.dispatchEvent(new Event("wishlistUpdated"));
+
+    loadWishlist(); // UI refresh
+  } catch (err) {
+    console.error(err);
+    alert("Failed to add to cart");
   }
-
-  await addToCartApi({
-    productId: item.productId,
-    variantId,
-    quantity: 1
-  });
-
-  window.dispatchEvent(new Event("cartUpdated"));
 };
 
   if (items.length === 0) {
