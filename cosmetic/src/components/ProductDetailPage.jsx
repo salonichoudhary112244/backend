@@ -70,7 +70,10 @@ export default function ProductDetailPage() {
              productId={product.id}//add this line add to cart
             onSelect={setSelectedVariant}
           />
-          <ProductBuyBox variant={selectedVariant} />
+          <ProductBuyBox
+           variant={selectedVariant} 
+           productId={product.id}   // 🔥 THIS IS MUST add this line cart
+          />
         </div>
 
       </div>
