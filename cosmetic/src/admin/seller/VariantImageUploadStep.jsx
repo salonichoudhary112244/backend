@@ -142,10 +142,18 @@ export default function VariantImageUploadStep({ onNext }) {
     const formData = new FormData();
     images.forEach(img => formData.append("files", img.file));
 
-    await axiosInstance.post(
-      `/auth/products/${productState.productId}/images?variantId=${variantId}`,
-      formData
-    );
+await axiosInstance.post(
+ // `/auth/products/${productState.productId}/images?variantId=${variantId}`,
+  `http://localhost:8080/auth/products/${productState.productId}/images?variantId=${variantId}`,
+  formData,
+  {
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+        // ❌ Content-Type mat do
+      }
+  }
+);
+
 
     alert("Images uploaded successfully");
     onNext();
