@@ -1,43 +1,9 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-}
 
-.auth-card {
-  width: 360px;
-  margin: 30px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
 
-.auth-card h2 {
-  text-align: center;
-}
-
-.auth-card input {
-  width: 100%;
-  margin: 8px 0;
-  padding: 10px;
-}
-
-.auth-card button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
-
-.google-btn {
-  background: #db4437;
-}
 /* =========================
    AUTH COMMON CARD
 ========================= */
+/*
 .auth-card {
   width: 360px;
   margin: 80px auto;
@@ -53,8 +19,9 @@ body {
   color: #b76e79;
 }
 
-/* INPUTS */
-.auth-card input {
+             /* INPUTS */
+
+/*             .auth-card input {
   width: 100%;
   padding: 12px;
   margin-bottom: 14px;
@@ -64,6 +31,7 @@ body {
 }
 
 /* BUTTON */
+/*
 .auth-card button {
   width: 100%;
   padding: 12px;
@@ -80,6 +48,7 @@ body {
 }
 
 /* LINKS */
+/*
 .auth-card a {
   color: #b76e79;
   text-decoration: none;
@@ -88,6 +57,7 @@ body {
 /* =========================
    AUTH PAGE BACKGROUND
 ========================= */
+/*
 .auth-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #fdeff2, #fff);
@@ -111,6 +81,7 @@ body {
 /* =========================
    PAGE FADE + SCALE
 ========================= */
+/*
 .auth-card {
   animation: fadeScale 0.5s ease;
 }
@@ -127,6 +98,7 @@ body {
 }
 
 /* BUTTON HOVER */
+/*
 .auth-card button {
   transition: all 0.3s ease;
 }
@@ -157,4 +129,189 @@ body {
 .auth-card button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(183,110,121,0.4);
+} 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   GLOBAL
+========================= */
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
 }
+
+/* =========================
+   AUTH PAGE
+========================= */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdeff2, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   AUTH CARD
+========================= */
+.auth-card {
+  width: 360px;
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  animation: fadeScale 0.45s ease;
+}
+
+/* LOGO */
+.auth-logo {
+  width: 110px;
+  margin-bottom: 18px;
+}
+
+.clickable-logo {
+  cursor: pointer;
+}
+
+/* TITLE */
+.auth-card h2 {
+  margin-bottom: 22px;
+  color: #b76e79;
+  font-weight: 600;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.auth-card input:focus {
+  border-color: #b76e79;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  background: #b76e79;
+  color: #ffffff;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.auth-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(183, 110, 121, 0.4);
+}
+
+/* =========================
+   LINKS
+========================= */
+.auth-card a {
+  color: #b76e79;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

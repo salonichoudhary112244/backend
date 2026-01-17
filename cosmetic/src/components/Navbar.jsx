@@ -8,27 +8,27 @@ import "../styles/saloni.css";
 import "../styles/navbar.css";
 export default function Navbar() {
   const navigate = useNavigate();
-  const [user] = useState(null);
+  const [user, setUser] = useState(null);
   const [cartCount, setCartCount] = useState(0);
 const [wishlistCount, setWishlistCount] = useState(0);
 
 
-  // 🔹 LOAD USER FROM LOCAL STORAGE
-// useEffect(() => {
-//   const storedUser = getStoredUser();
-//   if (storedUser) {
-//     setUser(storedUser);   // ✅ YAHI user set hoga
-//   }
-// }, []);
+  // 🔹 LOAD USER FROM LOCAL STORAGE hii logout system
+useEffect(() => {
+  const storedUser = getStoredUser();
+  if (storedUser) {
+    setUser(storedUser);//user set
+  }
+}, []);
 
 
-//   /* 🔹 LOGOUT */
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("user");
-  //   setUser(null);
-  //   navigate("/login");
-  // };
+//   /* 🔹 LOGOUT */ button
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
 
 //   const navClass = ({ isActive }) =>
 //     `nav-link ${isActive ? "active" : ""}`;

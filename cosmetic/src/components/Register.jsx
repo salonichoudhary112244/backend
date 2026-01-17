@@ -84,12 +84,13 @@ export default function Register() {
           <button type="submit">Register</button>
         </form>
 
+       <GoogleLoginButton/>
         <div style={{ marginTop: "10px", textAlign: "center" }}>
           <Link to="/login">Already have an account? Login</Link>
         </div>
 
       </div>
-      <GoogleLoginButton/>
+      
     </div>
   );
 }

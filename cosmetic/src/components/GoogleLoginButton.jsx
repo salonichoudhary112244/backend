@@ -17,6 +17,7 @@ export default function GoogleLoginButton(){
        localStorage.setItem(
       "user",
       JSON.stringify({
+        id: res.data.id,
         name: res.data.name,
         email: res.data.email
       })
