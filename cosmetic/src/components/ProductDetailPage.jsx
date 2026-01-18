@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 import ProductBreadcrumb from "../components/product/ProductBreadcrumb";
 import ProductHeader from "../components/product/ProductHeader";
@@ -18,10 +19,12 @@ import "../styles/ProductDetailPage.css";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
+const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [loading, setLoading] = useState(true);
+const [variantImages, setVariantImages] = useState([]);
 
 //wishlist
   const user = getStoredUser();
@@ -33,6 +36,34 @@ const [wishlisted, setWishlisted] = useState(false);
       loadProduct();
     }
   }, [id]);
+
+  //veriant image ke liye add kiya
+useEffect(() => {
+  if (!selectedVariant?.id) {
+    setVariantImages([]); // variant nahi → clear
+    return;
+  }
+
+  axiosInstance
+    .get(`/auth/products/${id}/images?variantId=${selectedVariant.id}`)
+    .then(res => {
+      setVariantImages(res.data || []); // 🔥 overwrite only
+    })
+    .catch(() => {
+      setVariantImages([]);
+    });
+}, [selectedVariant?.id, id]);
+
+
+const galleryImages =
+  selectedVariant?.id
+    ? (variantImages.length > 0 ? variantImages : product?.images || [])
+    : product?.images || [];
+
+
+
+console.log("GALLERY IMAGES", galleryImages);
+
 
   const loadProduct = async () => {
     try {
@@ -90,13 +121,16 @@ const [wishlisted, setWishlisted] = useState(false);
 
         {/* LEFT – Sticky Images */}
         <div className="product-left">
-          <ProductImageGallery
-            images={
-              selectedVariant?.images?.length
-                ? selectedVariant.images
-                : product.images
-            }
-          />
+          {/* <ProductImageGallery
+            // images={
+            //   selectedVariant?.images?.length
+            //     ? selectedVariant.images
+            //     : product.images
+            // }
+images={variantImages.length ? variantImages : product.images} */}
+
+<ProductImageGallery images={galleryImages} />
+
         </div>
 
         {/* RIGHT – Scrollable Content */}

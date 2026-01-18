@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function ProductImageGallery({ images }) {
-  const [active, setActive] = useState(images?.[0]);
+  // const [active, setActive] = useState(null);
+const [active, setActive] = useState(images?.[0]);
+
+
+useEffect(() => {
+    setActive(images?.[0]);
+  }, [images]);
+
 
   if (!images || images.length === 0) {
     return <img src="/no-image.png" alt="No Image" />;
   }
+  //   useEffect(() => {
+  //   if (images && images.length > 0) {
+  //     setActive(images[0]);   // 🔥 RESET ACTIVE IMAGE
+  //   }
+  // }, [images]);
 
   return (
     <div className="image-gallery">

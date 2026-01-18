@@ -143,7 +143,6 @@ export default function VariantImageUploadStep({ onNext }) {
     images.forEach(img => formData.append("files", img.file));
 
 await axiosInstance.post(
- // `/auth/products/${productState.productId}/images?variantId=${variantId}`,
   `http://localhost:8080/auth/products/${productState.productId}/images?variantId=${variantId}`,
   formData,
   {
