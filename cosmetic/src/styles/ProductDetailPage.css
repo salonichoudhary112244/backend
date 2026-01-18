@@ -74,6 +74,8 @@
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid #eee;
+  transition: opacity 0.25s ease-in-out;
+
 }
 
 /* ========== RIGHT – CONTENT ========== */
