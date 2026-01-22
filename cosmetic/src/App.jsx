@@ -15,6 +15,7 @@ import CartPage from "./components/CartPage";
 import Wishlist from "./components/Wishlist";
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
+import OrderSuccess from "./components/OrderSuccess";
 export default function App() {
   return (
     <Routes>
@@ -50,6 +51,7 @@ export default function App() {
   
    <Route path="/cart" element={<CartPage />} /> 
 <Route path="/wishlist" element={<Wishlist />} />
+<Route path="/orders-success" element={<OrderSuccess />} />
 
  </Route>
 
