@@ -15,9 +15,6 @@ import CartPage from "./components/CartPage";
 import Wishlist from "./components/Wishlist";
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
-
-import CheckoutPage from "./components/CheckoutPage";
-
 export default function App() {
   return (
     <Routes>
@@ -31,6 +28,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+
 </Route>
 
      <Route
@@ -53,7 +51,6 @@ export default function App() {
    <Route path="/cart" element={<CartPage />} /> 
 <Route path="/wishlist" element={<Wishlist />} />
 
-<Route path="/checkout" element={<CheckoutPage />} />
  </Route>
 
     </Routes>
