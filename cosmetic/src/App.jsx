@@ -16,6 +16,7 @@ import Wishlist from "./components/Wishlist";
 import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
 import OrderSuccess from "./components/OrderSuccess";
+import SubscriptionSuccess from "./components/SubscriptionSuccess";
 export default function App() {
   return (
     <Routes>
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+     <Route path="/subscription-success" element={<SubscriptionSuccess />} />
 
 </Route>
 

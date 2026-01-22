@@ -245,6 +245,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useEffect, useState } from "react";
 import {
   getCartApi,
@@ -301,6 +315,26 @@ export default function CartPage() {
     0
   );
 
+  //clear cart button
+  const clearCart = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!window.confirm("Are you sure you want to clear cart?")) return;
+
+  try {
+    await axiosInstance.delete(`/auth/cart/clear/${user.id}`);
+
+    setItems([]); // frontend empty
+    window.dispatchEvent(new Event("cartUpdated"));
+
+    alert("Cart Cleared Successfully");
+  } catch (err) {
+    console.error("Clear cart failed", err);
+    alert("Clear cart failed ❌");
+  }
+};
+
+
   // ================= RAZORPAY PAYMENT =================
   const handleCheckout = async () => {
     try {
@@ -324,14 +358,33 @@ export default function CartPage() {
         description: "Order Payment",
         order_id: orderId,
 
-        handler: function (response) {
-          console.log("PAYMENT SUCCESS:", response);
-          alert("Payment Successful 🎉 Order Confirmed");
+// handler: async function (response) {
+//   console.log("PAYMENT SUCCESS:", response);
+//   alert("Payment Successful 🎉 Order Confirmed");
 
+//   navigate("/orders-success");
+// },
 
-          
-          navigate("/orders-success");
-        },
+handler: async function (response) {
+  console.log("PAYMENT SUCCESS:", response);
+  alert("Payment Successful 🎉 Order Confirmed");
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  try {
+    // ✅ Correct API path
+    await axiosInstance.delete(`/auth/cart/clear/${user.id}`);
+  } catch (e) {
+    console.error("Cart clear failed", e);
+  }
+
+  // ✅ Clear frontend state
+  setItems([]);
+  window.dispatchEvent(new Event("cartUpdated"));
+
+  // ✅ Redirect
+  window.location.href = "/orders-success";
+},
 
         prefill: {
           name: user?.name || "Saloni",
@@ -352,6 +405,50 @@ export default function CartPage() {
       alert("Payment Failed ❌");
     }
   };
+
+   // Create subscription
+const handleSubscription = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.id || 1;
+
+    // Create subscription
+    const res = await axiosInstance.post("/auth/payment/create-subscription", {
+      userId
+    });
+
+    const { subscriptionId, key } = res.data;
+
+    const options = {
+      key: key,
+      subscription_id: subscriptionId,
+      name: "SALONI Beauty Subscription",
+      description: "Monthly Beauty Box",
+
+      handler: function (response) {
+        console.log("SUBSCRIPTION SUCCESS", response);
+        alert("Subscription Started 🎉");
+
+        window.location.href = "/subscription-success";
+      },
+
+      prefill: {
+        name: user?.name,
+        email: user?.email,
+        contact: "9999999999"
+      },
+      theme: { color: "#673ab7" }
+    };
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+
+  } catch (err) {
+    console.error("Subscription error", err);
+    alert("Subscription Failed ❌");
+  }
+};
+
 
   // ================= UI =================
   return (
@@ -417,10 +514,20 @@ export default function CartPage() {
           <span>₹{totalPrice}</span>
         </div>
 
+{/* clear button */}
+<button className="clear-cart-btn" onClick={clearCart}>
+  Clear Cart 🗑️
+</button>
+
         {/* 🔥 PAYMENT BUTTON */}
         <button className="checkout-btn" onClick={handleCheckout}>
           Pay ₹{totalPrice}
         </button>
+        
+        <button className="subscription-btn" onClick={handleSubscription}>
+  Subscribe Monthly ₹499
+</button>
+
       </div>
     </div>
   );
