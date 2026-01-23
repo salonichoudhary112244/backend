@@ -525,7 +525,7 @@ const handleSubscription = async () => {
         </button>
         
         <button className="subscription-btn" onClick={handleSubscription}>
-  Subscribe Monthly ₹499
+  Subscribe Monthly ₹100
 </button>
 
       </div>
