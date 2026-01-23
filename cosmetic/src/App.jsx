@@ -17,6 +17,13 @@ import SellerPanel from "./admin/sellerPanel";
 import { ProductProvider } from "./api/ProductContext";
 import OrderSuccess from "./components/OrderSuccess";
 import SubscriptionSuccess from "./components/SubscriptionSuccess";
+
+
+
+
+import AdminPanel from "./pages/AdminPanel";
+
+
 export default function App() {
   return (
     <Routes>
@@ -56,6 +63,9 @@ export default function App() {
 <Route path="/orders-success" element={<OrderSuccess />} />
 
  </Route>
+
+ {/* admin-panel */}
+<Route path="/admin" element={<AdminPanel />} />
 
     </Routes>
 

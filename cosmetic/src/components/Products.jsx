@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import ProductCard from "../components/ProductCard"
 import "../styles/products.css";
-
+// listing-page
 export default function Products() {
 
   const [products, setProducts] = useState([]);
@@ -36,7 +36,7 @@ export default function Products() {
 
   return (
     <div className="product-list-page">
-      <h2>All Products</h2>
+      <h2 className="product-name">All Products</h2>
 
       <div className="product-grid">
 {products
