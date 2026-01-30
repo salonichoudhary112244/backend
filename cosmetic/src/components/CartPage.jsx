@@ -407,47 +407,48 @@ handler: async function (response) {
   };
 
 //    // Create subscription
-// const handleSubscription = async () => {
-//   try {
-//     const user = JSON.parse(localStorage.getItem("user"));
-//     const userId = user?.id || 1;
 
-//     // Create subscription
-//     const res = await axiosInstance.post("/auth/payment/create-subscription", {
-//       userId
-//     });
+const handleSubscription = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.id || 1;
 
-//     const { subscriptionId, key } = res.data;
+    // Create subscription
+    const res = await axiosInstance.post("/auth/payment/create-subscription", {
+      userId
+    });
 
-//     const options = {
-//       key: key,
-//       subscription_id: subscriptionId,
-//       name: "SALONI Beauty Subscription",
-//       description: "Monthly Beauty Box",
+    const { subscriptionId, key } = res.data;
 
-//       handler: function (response) {
-//         console.log("SUBSCRIPTION SUCCESS", response);
-//         alert("Subscription Started 🎉");
+    const options = {
+      key: key,
+      subscription_id: subscriptionId,
+      name: "SALONI Beauty Subscription",
+      description: "Monthly Beauty Box",
 
-//         window.location.href = "/subscription-success";
-//       },
+      handler: function (response) {
+        console.log("SUBSCRIPTION SUCCESS", response);
+        alert("Subscription Started 🎉");
 
-//       prefill: {
-//         name: user?.name,
-//         email: user?.email,
-//         contact: "9999999999"
-//       },
-//       theme: { color: "#673ab7" }
-//     };
+        window.location.href = "/subscription-success";
+      },
 
-//     const razorpay = new window.Razorpay(options);
-//     razorpay.open();
+      prefill: {
+        name: user?.name,
+        email: user?.email,
+        contact: "9999999999"
+      },
+      theme: { color: "#673ab7" }
+    };
 
-//   } catch (err) {
-//     console.error("Subscription error", err);
-//     alert("Subscription Failed ❌");
-//   }
-// };
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+
+  } catch (err) {
+    console.error("Subscription error", err);
+    alert("Subscription Failed ❌");
+  }
+};
 
 
   // ================= UI =================
@@ -524,9 +525,14 @@ handler: async function (response) {
           Pay ₹{totalPrice}
         </button>
         
-        {/* <button className="subscription-btn" onClick={handleSubscription}>
+      {/* 🔔 SUBSCRIPTION BUTTON */}
+<button 
+  className="subscription-btn" 
+  onClick={handleSubscription}
+>
   Subscribe Monthly ₹100
-</button> */}
+</button>
+
 
       </div>
     </div>

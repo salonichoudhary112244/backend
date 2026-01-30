@@ -425,6 +425,30 @@
 }
 
 
+/* subscrition*/
+.subscription-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #673ab7, #9c27b0);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subscription-btn:hover {
+  background: linear-gradient(135deg, #5e35b1, #8e24aa);
+}
+.subscription-btn::before {
+  content: "⭐ ";
+}
+
+
+
 
 
 
