@@ -18,6 +18,8 @@ import { ProductProvider } from "./api/ProductContext";
 import OrderSuccess from "./components/OrderSuccess";
 import SubscriptionSuccess from "./components/SubscriptionSuccess";
 
+import MyOrders from "./components/MyOrders";
+import AdminOrders from "./admin/AdminOrders";
 
 
 
@@ -38,7 +40,6 @@ export default function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
      <Route path="/subscription-success" element={<SubscriptionSuccess />} />
-
 </Route>
 
      <Route
@@ -62,7 +63,8 @@ export default function App() {
 <Route path="/wishlist" element={<Wishlist />} />
 <Route path="/orders-success" element={<OrderSuccess />} />
 
- </Route>
+<Route path="/my-orders" element={<MyOrders />} />
+<Route path="/admin/orders" element={<AdminOrders />} /> </Route>
 
  {/* admin-panel */}
 <Route path="/admin" element={<AdminPanel />} />
