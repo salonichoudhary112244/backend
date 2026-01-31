@@ -31,7 +31,7 @@ localStorage.setItem(
   JSON.stringify({
     id: res.data.id,
     name: res.data.name,
-    email: res.data.email
+    email: res.data.email,
   })
 );
 
