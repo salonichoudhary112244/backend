@@ -7,13 +7,23 @@ import { getStoredUser } from "../utils/auth";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
 import { MdMoreVert } from "react-icons/md";
+import {
+  MdPerson,
+  MdShoppingBag,
+  MdStore,
+  MdAdminPanelSettings,
+  MdLogout
+} from "react-icons/md";
+import { MdListAlt } from "react-icons/md";
+
+import { useRef } from "react";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [cartCount, setCartCount] = useState(0);
   const [showMenu, setShowMenu] = useState(false);//menu 
-
+const menuRef = useRef();
 const [wishlistCount, setWishlistCount] = useState(0);
 
 
@@ -33,6 +43,21 @@ useEffect(() => {
     setUser(null);
     navigate("/login");
   };
+
+// 🔹 OUTSIDE CLICK → CLOSE MENU
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setShowMenu(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
 
 //   const navClass = ({ isActive }) =>
 //     `nav-link ${isActive ? "active" : ""}`;
@@ -118,7 +143,7 @@ useEffect(() => {
 
 
 {/* MORE MENU */}
-<div className="more-menu">
+<div className="more-menu" ref={menuRef}>
   <MdMoreVert
     size={24}
     className="more-icon"
@@ -134,34 +159,62 @@ useEffect(() => {
       </div>
 
       <p onClick={() => navigate("/profile")}>
-        My Profile
+        <MdPerson /> My Profile
       </p>
 
       <p onClick={() => navigate("/my-orders")}>
-        My Orders
+        <MdShoppingBag /> My Orders
       </p>
 
       <p onClick={() => navigate("/wishlist")}>
-        Wishlist
+        <MdFavoriteBorder /> Wishlist
       </p>
 
       <p onClick={() => navigate("/cart")}>
-        Cart
+        <MdShoppingCart /> Cart
       </p>
+<p onClick={() => navigate("/seller-product-create")}>
+  <MdStore /> Seller Panel
+</p>
 
-      {/* SELLER PANEL */}
-      <p onClick={() => navigate("/seller-product-create")}>
-        Seller Panel
-      </p>
+<p onClick={() => navigate("/admin")}>
+  <MdAdminPanelSettings /> Admin Panel
+</p>
+
+<p onClick={() => navigate("/admin/orders")}>
+  <MdListAlt /> Admin Orders
+</p>
+
+      {/* SELLER ONLY */}
+      {/* {user?.role === "SELLER" && (
+        <p onClick={() => navigate("/seller-product-create")}>
+          <MdStore /> Seller Panel
+        </p>
+      )} */}
+
+      {/* ADMIN ONLY */}
+    {/* {user?.role === "ADMIN" && (
+  <>
+    <p onClick={() => navigate("/admin")}>
+      <MdAdminPanelSettings /> Admin Panel
+    </p>
+
+    <p onClick={() => navigate("/admin/orders")}>
+      <MdListAlt /> Admin Orders
+    </p>
+  </>
+)} */}
+
 
       <hr />
 
       <p className="logout-text" onClick={handleLogout}>
-        Logout
+        <MdLogout /> Logout
       </p>
     </div>
   )}
 </div>
+
 
 
 

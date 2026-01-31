@@ -278,3 +278,19 @@
   margin-bottom: 4px;
 }
 
+.more-dropdown p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.more-dropdown svg {
+  font-size: 18px;
+  color: #b76e79;
+}
+
+.logout-text svg {
+  color: #e63946;
+}
