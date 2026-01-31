@@ -6,10 +6,14 @@ import { getWishlistApi } from "../api/wishlistApi";
 import { getStoredUser } from "../utils/auth";
 import "../styles/saloni.css";
 import "../styles/navbar.css";
+import { MdMoreVert } from "react-icons/md";
+
 export default function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+  const [showMenu, setShowMenu] = useState(false);//menu 
+
 const [wishlistCount, setWishlistCount] = useState(0);
 
 
@@ -113,12 +117,60 @@ useEffect(() => {
 </div>
 
 
+{/* MORE MENU */}
+<div className="more-menu">
+  <MdMoreVert
+    size={24}
+    className="more-icon"
+    onClick={() => setShowMenu(!showMenu)}
+  />
+
+  {showMenu && (
+    <div className="more-dropdown">
+
+      {/* USER NAME */}
+      <div className="menu-user">
+        Hi, {user?.name}
+      </div>
+
+      <p onClick={() => navigate("/profile")}>
+        My Profile
+      </p>
+
+      <p onClick={() => navigate("/my-orders")}>
+        My Orders
+      </p>
+
+      <p onClick={() => navigate("/wishlist")}>
+        Wishlist
+      </p>
+
+      <p onClick={() => navigate("/cart")}>
+        Cart
+      </p>
+
+      {/* SELLER PANEL */}
+      <p onClick={() => navigate("/seller-product-create")}>
+        Seller Panel
+      </p>
+
+      <hr />
+
+      <p className="logout-text" onClick={handleLogout}>
+        Logout
+      </p>
+    </div>
+  )}
+</div>
+
+
+
  {/* RIGHT LINKS */}
         <div className="nav-right d-none d-md-flex">
 
           {user ? (
             <>
-              <span className="user-name">
+              {/* <span className="user-name">
                 Hi, {user.name}
               </span>
 
@@ -127,9 +179,11 @@ useEffect(() => {
                 onClick={handleLogout}
               >
                 Logout
-              </button>
+              </button> */}
             </>
-          ) : (
+          ) 
+          :
+           (
             <>
               <NavLink to="/login" className="signin-btn">Login</NavLink>
               <NavLink to="/register" className="register-btn">Register</NavLink>
