@@ -20,7 +20,7 @@ import SubscriptionSuccess from "./components/SubscriptionSuccess";
 
 import MyOrders from "./components/MyOrders";
 import AdminOrders from "./admin/AdminOrders";
-
+import TrackOrder from "./components/TrackOrder";
 
 
 import AdminPanel from "./pages/AdminPanel";
@@ -64,7 +64,9 @@ export default function App() {
 <Route path="/orders-success" element={<OrderSuccess />} />
 
 <Route path="/my-orders" element={<MyOrders />} />
-<Route path="/admin/orders" element={<AdminOrders />} /> </Route>
+<Route path="/admin/orders" element={<AdminOrders />} />
+<Route path="/track-order/:orderNumber" element={<TrackOrder />} />
+ </Route>
 
  {/* admin-panel */}
 <Route path="/admin" element={<AdminPanel />} />
