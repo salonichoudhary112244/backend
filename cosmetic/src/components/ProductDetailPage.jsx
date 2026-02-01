@@ -17,6 +17,8 @@ import { getStoredUser } from "../utils/auth";
 
 import "../styles/ProductDetailPage.css";
 
+import ProductReviews from "../components/review/ProductReviews";
+
 export default function ProductDetailPage() {
   const { id } = useParams();
 const navigate = useNavigate();
@@ -164,7 +166,10 @@ images={variantImages.length ? variantImages : product.images} */}
 
       </div>
 
-      <ProductTabs product={product} />
+<ProductTabs product={product} />
+
+<ProductReviews productId={Number(id)} />
+
     </div>
   );
 }
