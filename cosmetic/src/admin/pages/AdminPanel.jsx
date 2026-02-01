@@ -24,21 +24,16 @@
 
 
 
-
-
-import { Box } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import AdminNavbar from "./AdminNavbar";
-import AdminDashboard from "./AdminDashboard";
+import { Box } from "@mui/material";
 
 export default function AdminPanel() {
   return (
-    <Box sx={{ display: "flex", height: "100vh", bgcolor: "#fdf2f5" }}>
+    <Box sx={{ display: "flex" }}>
       <AdminSidebar />
-
-      <Box sx={{ flex: 1, p: 3}}>
-        <AdminNavbar />
-        <AdminDashboard />
+      <Box sx={{ flex: 1, p: 3 }}>
+        <Outlet />   {/* ❗ ye missing hua to blank page */}
       </Box>
     </Box>
   );

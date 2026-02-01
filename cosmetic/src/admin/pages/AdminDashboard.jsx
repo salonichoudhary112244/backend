@@ -81,9 +81,24 @@
 
 
 import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import axiosInstance from "../../api/axiosInstance";
 import AdminRightPanel from "./AdminRightPanel";
 
 export default function AdminDashboard() {
+
+    const [stats, setStats] = useState({
+    totalSales: 0,
+    totalOrders: 0,
+    totalProducts: 0
+  });
+
+  useEffect(() => {
+    axiosInstance.get("/admin/dashboard")
+      .then(res => setStats(res.data))
+      .catch(err => console.log(err));
+  }, []);
+
   return (
     <Box sx={{ display: "flex", gap: 4, mt: 3 }}>
 
