@@ -33,11 +33,11 @@ export default function ProductTabs({ product }) {
         <p>{product.manufacturerInfo?.content}</p>
       </section>
 
-      {/* REVIEWS */}
+      {/* REVIEWS
       <section>
         <h3>Customer Reviews</h3>
         <p>⭐ 4.2 out of 5</p>
-      </section>
+      </section> */}
 
     </div>
   );

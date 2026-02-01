@@ -6,6 +6,8 @@ import axiosInstance from "../api/axiosInstance";
 import { useEffect, useState } from "react";
 import { MdFavorite, MdFavoriteBorder, MdShoppingCart } from "react-icons/md";
 import { addToWishlistApi, removeWishlistApi, getWishlistApi } from "../api/wishlistApi";
+import { getRatingSummary } from "../api/reviewApi";
+
 export default function ProductCard({ product }) {
 
   const navigate = useNavigate();
@@ -13,6 +15,10 @@ export default function ProductCard({ product }) {
 //wishlist
   const [wishlisted, setWishlisted] = useState(false);
 const user = getStoredUser();
+
+// ⭐ rating
+const [rating, setRating] = useState(0);
+const [totalReviews, setTotalReviews] = useState(0);
 
   const addWishlist = async (e) => {
     e.stopPropagation();
@@ -45,6 +51,22 @@ useEffect(() => {
 
   checkWishlist();
 }, []);
+
+useEffect(() => {
+  const loadRating = async () => {
+    try {
+      const res = await getRatingSummary(product.productId);
+      setRating(res.data.averageRating || 0);
+      setTotalReviews(res.data.totalReviews || 0);
+    } catch (err) {
+      setRating(0);
+      setTotalReviews(0);
+    }
+  };
+
+  loadRating();
+}, [product.productId]);
+
 
 const toggleWishlist = async (e) => {
   e.stopPropagation();
@@ -110,6 +132,16 @@ const handleAddToCart = async (e) => {
     }
   };
 
+  const renderStars = (value) => {
+  const fullStars = Math.floor(value);
+  return (
+    <span style={{ color: "#f5a623", fontSize: "14px" }}>
+      {"★".repeat(fullStars)}
+      {"☆".repeat(5 - fullStars)}
+    </span>
+  );
+};
+
   return (
     <div
       className="product-card"
@@ -129,6 +161,17 @@ const handleAddToCart = async (e) => {
         <div className="product-price">
           ₹{product.price}
         </div>
+
+{/* ⭐ RATING */}
+{totalReviews > 0 && (
+  <div className="product-rating">
+    {renderStars(rating)}
+    <span style={{ marginLeft: 6, fontSize: 13, color: "#555" }}>
+      {rating.toFixed(1)} ({totalReviews})
+    </span>
+  </div>
+)}
+
 
       <button onClick={handleAddToCart}>
         Add to Cart
