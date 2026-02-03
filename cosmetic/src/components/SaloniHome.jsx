@@ -150,8 +150,15 @@ export default function SaloniHome() {
   </div>
 </section>
 
-{/* 
-footer ke liye */}
+
+
+
+
+
+
+
+
+{/* footer ke liye */}
 
 <footer className="footer">
 

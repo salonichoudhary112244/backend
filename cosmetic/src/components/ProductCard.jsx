@@ -148,11 +148,19 @@ const handleAddToCart = async (e) => {
        onClick={() => navigate
         (`/products/${product.productId}`)}
     >
-      <img
+      {/* <img
          src={imageSrc }
         alt={product.name}
         className="product-image"
-      />
+      /> */}
+
+<div className="product-image-wrapper">
+  <img
+    src={imageSrc}
+    alt={product.name}
+    className="product-image"
+  />
+</div>
 
       <div className="product-info">
         <h4 className="product-name">{product.name}</h4>
@@ -173,7 +181,7 @@ const handleAddToCart = async (e) => {
 )}
 
 
-      <button onClick={handleAddToCart}>
+      <button className="addToCartBtn"  onClick={handleAddToCart}>
         Add to Cart
       </button>
       </div>

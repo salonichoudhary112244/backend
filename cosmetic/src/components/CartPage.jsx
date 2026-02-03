@@ -383,7 +383,7 @@ handler: async function (response) {
   window.dispatchEvent(new Event("cartUpdated"));
 
   // ✅ Redirect
-  window.location.href = "/orders-success";
+  // window.location.href = "/orders-success";
 },
 
         prefill: {
@@ -430,7 +430,7 @@ const handleSubscription = async () => {
         console.log("SUBSCRIPTION SUCCESS", response);
         alert("Subscription Started 🎉");
 
-        window.location.href = "/subscription-success";
+        // window.location.href = "/subscription-success";
       },
 
       prefill: {
