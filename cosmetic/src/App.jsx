@@ -34,7 +34,7 @@ export default function App() {
     <Routes>
       
        {/* 🟢 HOME PAGE (OWN NAVBAR) */}
-      <Route path="/" element={<SaloniHome />} />
+      {/* <Route path="/" element={<SaloniHome />} /> */}
 
 
 
@@ -60,6 +60,8 @@ export default function App() {
 
       {/* 🔵 PUBLIC WEBSITE allow all  */}
       <Route element={<MainLayout />}>
+            <Route path="/" element={<SaloniHome />} />
+
       <Route path="/products" element={<Products/>}/>
   <Route path="/products/:id" element={<ProductDetailPage />}/>
    <Route path="/cart" element={<CartPage />} /> 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles/saloni.css";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import Category from "./CategoryCard";
 
 
@@ -11,7 +11,7 @@ export default function SaloniHome() {
     <div className="saloni-container">
 
       {/* NAVBAR */}
-        <Navbar />
+        {/* <Navbar /> */}
 
       {/* HERO */}
 <section className="hero-banner">
@@ -156,11 +156,8 @@ export default function SaloniHome() {
 
 
 {/* footer ke liye */}
-   <Footer />
-{/* caregory card footer part h */}
-   {/* <footer className="footer">
-   ... (poora footer code yahan tha) ...
-</footer> */}
+   {/* <Footer /> */}
+
     </div>
   );
 }

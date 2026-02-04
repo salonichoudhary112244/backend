@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
-// import Footer from "../components/Footer";
-// import BackToTop from "../components/BackToTop";
+import Footer from "../components/Footer";
+import BackToTop from "../components/BackToTop";
 import "../styles/mainLayout.css";
 
 export default function MainLayout() {
@@ -11,9 +11,8 @@ export default function MainLayout() {
       <main>
         <Outlet />
       </main>
-
-      {/* <Footer /> */}
-      {/* <BackToTop /> */}
+ <Footer />
+<BackToTop />
     </>
   );
 }

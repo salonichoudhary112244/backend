@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { addToWishlistApi, removeWishlistApi, getWishlistApi } from "../api/wishlistApi";
+import { getStoredUser } from "../utils/auth";
+
 import ProductBreadcrumb from "../components/product/ProductBreadcrumb";
 import ProductHeader from "../components/product/ProductHeader";
 import ProductPricing from "../components/product/ProductPricing";
@@ -10,10 +14,6 @@ import ProductVariants from "../components/product/ProductVariants";
 import ProductBuyBox from "../components/product/ProductBuyBox";
 import ProductTabs from "../components/product/ProductTabs";
 import ProductImageGallery from "../components/product/ProductImageGallery";
-
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { addToWishlistApi, removeWishlistApi, getWishlistApi } from "../api/wishlistApi";
-import { getStoredUser } from "../utils/auth";
 
 import "../styles/ProductDetailPage.css";
 
