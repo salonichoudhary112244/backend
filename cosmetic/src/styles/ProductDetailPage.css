@@ -220,6 +220,69 @@
 }
 
 
+/* ========== NYKAA STYLE HEADER ========== */
+.product-header-nykaa h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.brand-line {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+.rating-line {
+  font-size: 14px;
+  color: #f3a847;
+}
+
+/* ========== NYKAA PRICING ========== */
+.pricing-nykaa {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+}
+
+.nykaa-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #d32f2f;
+}
+
+.stock-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+}
+
+.stock-chip.in {
+  background: #e6f4ea;
+  color: #0f9d58;
+}
+
+.stock-chip.out {
+  background: #fdecea;
+  color: #d93025;
+}
+
+/* ========== VARIANT PILLS ========== */
+.variant-pill {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.variant-pill.active {
+  border-color: #7a2b5f;
+  background: #f9f1f6;
+  color: #7a2b5f;
+}
+
 
 
 
@@ -292,19 +355,19 @@
 }
 
 
-.product-buy-box button {
+/* .product-buy-box button {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
+} */
 
-.product-buy-box button:hover {
+/* .product-buy-box button:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
+} */
 
 /* Shine effect */
-.product-buy-box button::before {
+/* .product-buy-box button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -317,7 +380,7 @@
 
 .product-buy-box button:hover::before {
   left: 100%;
-}
+} */
 
 
 .wishlist-icon {
@@ -359,6 +422,58 @@
   0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0); }
+}
+
+
+/* ========== NYKAA STYLE TABS ========== */
+.nykaa-tabs {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Card style like Nykaa */
+.nykaa-card {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+/* Headings */
+.nykaa-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #7a2b5f; /* your SALONI pink */
+}
+
+/* Bullet points */
+.nykaa-bullets {
+  padding-left: 18px;
+}
+
+.nykaa-bullets li {
+  margin-bottom: 6px;
+  color: #444;
+}
+
+/* Table like Nykaa */
+.nykaa-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.nykaa-table td {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.nykaa-table td.key {
+  width: 35%;
+  font-weight: 600;
+  color: #333;
 }
 
 

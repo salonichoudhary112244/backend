@@ -3,9 +3,9 @@ export default function ProductTabs({ product }) {
     <div className="product-tabs">
 
       {/* ABOUT */}
-      <section>
+        <section className="nykaa-card">
         <h3>About this item</h3>
-        <ul>
+         <ul className="nykaa-bullets">
           {product.features?.map(f => (
             <li key={f.id}>{f.feature}</li>
           ))}
@@ -13,13 +13,13 @@ export default function ProductTabs({ product }) {
       </section>
 
       {/* TECHNICAL DETAILS */}
-      <section>
+ <section className="nykaa-card">
         <h3>Technical Details</h3>
-        <table>
+         <table className="nykaa-table">
           <tbody>
             {product.specifications?.map(s => (
               <tr key={s.id}>
-                <td>{s.specKey}</td>
+                 <td className="key">{s.specKey}</td>
                 <td>{s.specValue}</td>
               </tr>
             ))}
@@ -28,16 +28,13 @@ export default function ProductTabs({ product }) {
       </section>
 
       {/* MANUFACTURER */}
-      <section>
+        <section className="nykaa-card">
         <h3>From the Manufacturer</h3>
         <p>{product.manufacturerInfo?.content}</p>
       </section>
 
-      {/* REVIEWS
-      <section>
-        <h3>Customer Reviews</h3>
-        <p>⭐ 4.2 out of 5</p>
-      </section> */}
+       {/* REVIEWS */}
+      
 
     </div>
   );

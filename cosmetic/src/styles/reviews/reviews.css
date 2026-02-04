@@ -1,0 +1,151 @@
+/* ========== WRAPPER ========== */
+.reviews-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+}
+
+/* Title */
+.reviews-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 18px;
+}
+
+/* ========== FORM CARD ========== */
+.review-form-card {
+  background: #fff7f9;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #f2d5dd;
+}
+
+/* Stars row */
+.rating-row {
+  margin-bottom: 10px;
+}
+
+/* Textarea */
+.review-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2c1c8;
+  font-size: 14px;
+  resize: vertical;
+}
+
+/* Submit button */
+.submit-review-btn {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
+  background: linear-gradient(135deg, #e8a6b2, #f2b9c4);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-review-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(183,110,121,0.3);
+}
+
+/* Divider */
+.reviews-divider {
+  margin: 24px 0;
+  border: none;
+  height: 1px;
+  background: #f1d4da;
+}
+
+/* ========== SINGLE REVIEW CARD ========== */
+.single-review-card {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #f1d4da;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+
+/* Header row */
+.review-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Avatar circle */
+.review-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fde6eb;
+  color: #b76e79;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Review text */
+.review-text {
+  margin-top: 6px;
+  color: #444;
+  font-size: 14px;
+}
+
+/* ========== ACTION BUTTONS ========== */
+.review-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit */
+.edit-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #b76e79;
+  background: #fff;
+  color: #b76e79;
+  cursor: pointer;
+}
+
+/* Delete */
+.delete-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ff6b6b;
+  background: #fff;
+  color: #ff6b6b;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #f9f1f6;
+}
+
+.delete-btn:hover {
+  background: #fff1f1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .reviews-wrapper {
+    padding: 16px;
+  }
+
+  .review-header {
+    flex-direction: column;
+  }
+}
