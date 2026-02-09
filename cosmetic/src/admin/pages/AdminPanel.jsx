@@ -24,11 +24,21 @@
 
 
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 import { Box } from "@mui/material";
 
+import { useEffect } from "react";
+import { isSuperAdmin } from "../../utils/roleGuard";
+
 export default function AdminPanel() {
+    const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isSuperAdmin()) {
+      navigate("/products");   // non-admin ko redirect
+    }
+  }, []);
   return (
     <Box sx={{ display: "flex" }}>
       <AdminSidebar />

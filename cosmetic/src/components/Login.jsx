@@ -32,6 +32,7 @@ localStorage.setItem(
     id: res.data.id,
     name: res.data.name,
     email: res.data.email,
+    roles: res.data.roles   // 🔥 VERY IMPORTANT
   })
 );
 
