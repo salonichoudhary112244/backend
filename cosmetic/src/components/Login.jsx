@@ -5,6 +5,7 @@ import "../styles/auth.css";
 import logo from "../assets/saloni-logo.png";
 import Popup from "./Popup";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { RollerShades } from "@mui/icons-material";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,15 +25,24 @@ export default function Login() {
 //   throw new Error("Invalid login response: user missing");
 // }
 
- localStorage.setItem("token", res.data.token);
+ const userDate = res.data;
+
+ localStorage.setItem("token",userDate.token);
 
 localStorage.setItem(
   "user",
   JSON.stringify({
-    id: res.data.id,
-    name: res.data.name,
-    email: res.data.email,
-    roles: res.data.roles   // 🔥 VERY IMPORTANT
+    // id: res.data.id,
+    // name: res.data.name,
+    // email: res.data.email,
+    // roles: res.data.roles   // 🔥 VERY IMPORTANT
+
+    // role base ke liye 
+      id: userDate.id,
+    name: userDate.name,
+    email: userDate.email,
+    roles: userDate.roles || [] // 🔥 VERY IMPORTANT
+
   })
 );
 
@@ -46,7 +56,21 @@ localStorage.setItem(
 
     setPopup({ msg: "Login successful 🎉", type: "success" });
 
-      navigate("/products");
+     // navigate("/products");
+
+     const role = userDate.roles?.[0];
+
+     console.log(userDate.roles);
+     
+if (role === "ROLE_SUPER_ADMIN") {
+  navigate("/admin");
+} else if (role === "ROLE_ADMIN") {
+  navigate("/admin");
+} else if (role === "ROLE_SELLER") {
+  navigate("/seller-product-create");
+} else {
+  navigate("/products");
+}
     } 
     catch (err) {
     console.error(err);

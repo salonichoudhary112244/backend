@@ -7,31 +7,69 @@ import { useNavigate } from "react-router-dom";
 
 export default function GoogleLoginButton(){
     const navigate = useNavigate();
+//   const handleGoogleResponse = async (response) => {
+//     try {
+//       const idToken = response.credential;
+//       const res = await googleLogin(idToken);
+
+//       localStorage.setItem("token", res.data);
+// //add
+//        localStorage.setItem(
+//       "user",
+//       JSON.stringify({
+//         id: res.data.id,
+//         name: res.data.name,
+//         email: res.data.email
+//       })
+//     );
+//       navigate("/products");
+//       setPopup({ msg: "Google login successful ✨", type: "success" });
+//     }
+    
+    
+//     catch {
+//       setPopup({ msg: "Google login failed ❌", type: "error" });
+//     }
+//   };
+
+
   const handleGoogleResponse = async (response) => {
     try {
       const idToken = response.credential;
+
       const res = await googleLogin(idToken);
 
-      localStorage.setItem("token", res.data);
-//add
-       localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: res.data.id,
-        name: res.data.name,
-        email: res.data.email
+          console.log("GOOGLE LOGIN RESPONSE:", res.data);
+
+    const userData = res.data;
+
+      localStorage.setItem("token", userData.token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          // id: res.data.id,
+          // name: res.data.name,
+          // email: res.data.email,
+          
+        //   id: res.data.user.id,
+        // name: res.data.user.name,
+        // email: res.data.user.email,
+        // roles: res.data.user.roles   // 👈 MUST HAVE
+       
+          id: userData.id,
+        name: userData.name,
+        email: userData.email,
+        roles: userData.roles || []
       })
-    );
+      );
+
+      alert("Google login successful ✅");
       navigate("/products");
-      setPopup({ msg: "Google login successful ✨", type: "success" });
-    }
-    
-    
-    catch {
-      setPopup({ msg: "Google login failed ❌", type: "error" });
+    } catch (err) {
+      console.error(err);
+      alert("Google login failed ❌");
     }
   };
-
 
   useEffect(() => {
       console.log("Google object:", window.google);

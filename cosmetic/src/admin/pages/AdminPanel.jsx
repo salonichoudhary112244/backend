@@ -29,13 +29,13 @@ import AdminSidebar from "./AdminSidebar";
 import { Box } from "@mui/material";
 
 import { useEffect } from "react";
-import { isSuperAdmin } from "../../utils/roleGuard";
+import { isSuperAdmin, isAdmin, isSeller } from "../../utils/roleGuard";
 
 export default function AdminPanel() {
     const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isSuperAdmin()) {
+   if (!isSuperAdmin() && !isAdmin() && !isSeller()) {
       navigate("/products");   // non-admin ko redirect
     }
   }, []);

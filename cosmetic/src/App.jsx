@@ -27,7 +27,7 @@ import TrackOrder from "./components/TrackOrder";
 import AdminOrders from "./admin/AdminOrders";
 import AdminPanel from "./admin/pages/AdminPanel";
 import AdminDashboard from "./admin/pages/AdminDashboard";
-
+import RoleRoute from "./routes/RoleRoute";   // 👈 add at top
 
 export default function App() {
   return (
@@ -50,13 +50,23 @@ export default function App() {
 {/* end auth layout */}
 
 
-     <Route path="/seller-product-create"
+     {/* <Route path="/seller-product-create"
   element={
     <ProductProvider>
       <SellerPanel />
     </ProductProvider>
-  }/>
+  }/> */}
 
+<Route
+  path="/seller-product-create"
+  element={
+    <RoleRoute role="ROLE_SELLER">
+      <ProductProvider>
+        <SellerPanel />
+      </ProductProvider>
+    </RoleRoute>
+  }
+/>
 
       {/* 🔵 PUBLIC WEBSITE allow all  */}
       <Route element={<MainLayout />}>
@@ -76,10 +86,20 @@ export default function App() {
 
 
    {/* 🔴 ADMIN PANEL */}
-<Route path="/admin" element={<AdminPanel />}>
+{/* <Route path="/admin" element={<AdminPanel />}> */}
+<Route
+  path="/admin"
+  element={
+    <RoleRoute role="ROLE_ADMIN">
+      <AdminPanel />
+    </RoleRoute>
+  }
+>
   <Route index element={<AdminDashboard />} />
   <Route path="dashboard" element={<AdminDashboard />} />
   <Route path="orders" element={<AdminOrders />} />
+  {/* <Route path="users" element={<UserManagement />} /> */}
+
 </Route>
 
 
